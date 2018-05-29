@@ -16,3 +16,5 @@ class test_Model(models.Model):
 
 	def __str__(self):
 		return self.username
+
+
