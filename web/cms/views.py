@@ -23,7 +23,7 @@ def cms_index(request):
 	# print('request.session.session_key:',request.session.session_key)
 	# print('-'*10)
 	# print(dir(request.session))
-	return HttpResponse('这里是后台管理系统首页！')
+	return render(request,'cms_index.html')
 
 @require_http_methods(['GET','POST'])
 def cms_login(request):

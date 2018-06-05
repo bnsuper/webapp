@@ -1,0 +1,15 @@
+{% extends "cms_base.html" %}
+{% load static %}
+
+{% block titleblock %}
+	后台管理首页
+{% endblock titleblock %}
+
+{% block content_headblock %}
+	<script src="{% static "js/cms_index.js" %}"></script>
+	<link href="{% static "css/cms_index.css" %}" rel="stylesheet">
+{% endblock content_headblock %}
+
+{% block contentblock %}
+	<h1 class="page-header">欢迎来到后台管理系统</h1>
+{% endblock contentblock %}

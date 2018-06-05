@@ -1,5 +1,5 @@
 from django.contrib import admin
-from mytest.models import test_Model
+from mytest.models import test_Model,testb_Model
 
 # Register your models here.
 def make_published(modeladmin,request,queryset):
@@ -12,3 +12,5 @@ class AuthorAdmin(admin.ModelAdmin):
 	actions = [make_published]
 
 admin.site.register(test_Model,AuthorAdmin)
+
+admin.site.register(testb_Model)
