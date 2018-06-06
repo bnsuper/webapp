@@ -26,16 +26,18 @@
 			        </tr>
 			      </thead>
 			      <tbody>
-			        <tr>
-			          <th scope="row">1</th>
-			          <td>Mark</td>
-			          <td>111@qq.com</td>
-			          <td>@mdo</td>
-			          <td>
-			          	<a href="">修改&nbsp&nbsp|&nbsp&nbsp</a>
-			          	<a href="">删除&nbsp&nbsp</a>
-			          </td>
-			        </tr>
+			      	{% for author in authors %}
+			      		<tr>
+				          <th scope="row">{{forloop.counter}}</th>
+				          <td>{{author.username}}</td>
+				          <td>{{author.email}}</td>
+				          <td>{{author.regist_time|date:"Y/m/d H:i"}}</td>
+				          <td>
+				          	<a href="">修改&nbsp&nbsp|&nbsp&nbsp</a>
+				          	<a href="">删除&nbsp&nbsp</a>
+				          </td>
+				        </tr>
+			      	{% endfor %}
 			        <tr>
 			          <th scope="row">2</th>
 			          <td>Jacob</td>

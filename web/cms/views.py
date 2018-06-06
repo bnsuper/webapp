@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login
 from django.contrib.sessions.models import Session
 from django.forms.models import model_to_dict
-
+from frontauth.models import frontAuthModel,authReationModel
 # Create your views here.
 
 @login_required
@@ -23,7 +23,11 @@ def cms_index(request):
 	# print('request.session.session_key:',request.session.session_key)
 	# print('-'*10)
 	# print(dir(request.session))
-	return render(request,'cms_index.html')
+	authors = frontAuthModel.objects.all()
+	context = {
+		'authors':authors
+	}
+	return render(request,'cms_index.html',context=context)
 
 @require_http_methods(['GET','POST'])
 def cms_login(request):
@@ -54,4 +58,6 @@ def cms_login(request):
 
 @login_required
 def cms_test(request):
+	auth = frontAuthModel(username='陈斌',tel='1383838438',email='151251@qq.com',password='123456')
+	auth.save()
 	return HttpResponse('测试页面！')
