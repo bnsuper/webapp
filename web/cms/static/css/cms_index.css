@@ -1,15 +1,15 @@
 /*
 * @Author: chenbin
 * @Date:   2018-06-05 17:11:06
-* @Last Modified by:   bn
-* @Last Modified time: 2018-06-05 23:21:15
+* @Last Modified by:   chenbin
+* @Last Modified time: 2018-06-07 14:20:32
 */
 
 h1{
 	text-align: center;
 	color: skyblue;
 	/*background: yellow;*/
-	padding-right: 50px;
+/*	padding-right: 50px;*/
 }
 
 
@@ -38,3 +38,8 @@ h1{
 	text-align: center;
 }
 
+
+.nav-page{
+	text-align: center;
+	/*background: yellow;*/
+}
