@@ -9,6 +9,8 @@ from django.contrib.sessions.models import Session
 from django.forms.models import model_to_dict
 from frontauth.models import frontAuthModel,authReationModel
 from django.conf import settings
+from random import randint
+from cms.utils import makeAuthors
 # Create your views here.
 
 @login_required
@@ -63,12 +65,14 @@ def cms_index(request,current_page=1):
 	#排序后的pages
 	pages.sort()
 	print(pages)
+	number = end - 15
 	context = {
-		'authors':authors,
-		'c_page':c_page,
-		'authors':authors_dice,
-		'pages':pages,
-		'all_pages':all_pages
+		'authors': authors,
+		'c_page': c_page,
+		'authors': authors_dice,
+		'pages': pages,
+		'all_pages': all_pages,
+		'number': number
 	}
 	return render(request,'cms_index.html',context=context)
 
@@ -99,10 +103,17 @@ def cms_login(request):
 		else:
 			return JsonResponse(form.errors)
 
+
+def cms_article_manager(request,current_page='1'):
+	c_page = int(current_page)
+	return render(request,'cms_article_manager.html')
+
+
 @login_required
 def cms_test(request):
-	kwargs = {'username':'汪峰','tel':'1865451234','email':'wangfeng@sina.com','password':'123456'}
-	# auth = frontAuthModel(username='陈斌',tel='1383838438',email='151251@qq.com',password='123456')
-	auth = frontAuthModel(**kwargs)
-	auth.save()
+	author_list = makeAuthors(10)
+	for author in author_list:
+		print(author)
+	# auth = frontAuthModel(**kwargs)
+	# auth.save()
 	return HttpResponse('测试页面！')

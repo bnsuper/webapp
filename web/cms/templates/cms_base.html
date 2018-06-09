@@ -18,7 +18,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">后台管理</a>
+          <a class="navbar-brand" href="{% url "cms_index" %}">后台管理</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -42,8 +42,8 @@
         <div class="col-sm-3 col-md-2 sidebar">
           <p>用户：admin</p>
           <ul class="nav nav-sidebar menu-ul">
-            <li class="active"><a href="#">注册信息<span class="sr-only">(current)</span></a></li>
-            <li class=""><a href="#">文章管理</a></li>
+            <li><a href="{% url "cms_author_pages" current_page=1 %}">注册信息<span class="sr-only">(current)</span></a></li>
+            <li><a href="{% url "cms_article_manager" current_page=1 %}">文章管理</a></li>
             <li><a href="#">用户管理</a></li>
             <li><a href="#">权限管理</a></li>
           </ul>

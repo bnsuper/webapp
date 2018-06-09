@@ -28,12 +28,12 @@
 			      <tbody>
 			      	{% for author in authors %}
 			      		<tr>
-				          <th scope="row">{{forloop.counter}}</th>
+				          <th scope="row">{{forloop.counter|add:number}}</th>
 				          <td>{{author.username}}</td>
 				          <td>{{author.email}}</td>
 				          <td>{{author.regist_time|date:"Y/m/d H:i"}}</td>
-				          <td>
-				          	<a href="">修改&nbsp&nbsp|&nbsp&nbsp</a>
+				          <td class="modify-td">
+				          	<a href="">修改</a><span>&nbsp&nbsp|&nbsp&nbsp</span>
 				          	<a href="">删除&nbsp&nbsp</a>
 				          </td>
 				        </tr>
@@ -73,3 +73,5 @@
 		</div>
 	</div>
 {% endblock contentblock %}
+
+

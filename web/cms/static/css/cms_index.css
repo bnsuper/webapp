@@ -2,7 +2,7 @@
 * @Author: chenbin
 * @Date:   2018-06-05 17:11:06
 * @Last Modified by:   chenbin
-* @Last Modified time: 2018-06-07 14:20:32
+* @Last Modified time: 2018-06-08 11:09:05
 */
 
 h1{
@@ -42,4 +42,8 @@ h1{
 .nav-page{
 	text-align: center;
 	/*background: yellow;*/
+}
+
+.modify-td a:hover{
+	color: red;
 }
