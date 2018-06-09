@@ -43,7 +43,7 @@
           <p>用户：admin</p>
           <ul class="nav nav-sidebar menu-ul">
             <li><a href="{% url "cms_author_pages" current_page=1 %}">注册信息<span class="sr-only">(current)</span></a></li>
-            <li><a href="#">文章管理</a></li>
+            <li><a href="{% url "cms_article_manager" current_page=1 %}">文章管理</a></li>
             <li><a href="#">用户管理</a></li>
             <li><a href="#">权限管理</a></li>
           </ul>

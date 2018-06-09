@@ -1,0 +1,23 @@
+{% extends "cms_base.html" %}
+{% load static %}
+
+{% block titleblock %}
+	文章管理
+{% endblock titleblock %}
+
+{% block content_headblock %}
+	<script src="{% static "js/cms_article_manager.js" %}"></script>
+	<link href="{% static "css/cms_article_manager.css" %}" rel="stylesheet">
+{% endblock content_headblock %}
+
+{% block contentblock %}
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h1>文章管理</h1>
+			</div>
+		</div>
+	</div>
+
+
+{% endblock contentblock %}

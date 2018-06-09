@@ -2,7 +2,7 @@
 * @Author: bn
 * @Date:   2018-06-05 20:53:56
 * @Last Modified by:   chenbin
-* @Last Modified time: 2018-06-08 10:09:07
+* @Last Modified time: 2018-06-09 11:23:48
 */
 'use strict'
 
@@ -11,15 +11,23 @@ $(function(){
 	// $('.menu-ul li').click(function(){
 	// $(this).addClass('active').siblings().removeClass('active')
 	// })
-	var url = window.location.href
-	var index = 0
+	var url = window.location.href;
+	var index = 0;
 	if (url.indexOf('authors') >= 0) 
 	{
-		console.log('comming!')
-		$('.menu-ul').children().eq(index).addClass('active').siblings().removeClass('active')
+		index = 0;
+		console.log('comming!');
+		console.log(index)
+		$('.menu-ul').children().eq(index).addClass('active').siblings().removeClass('active');
 	} 
+	else if(url.indexOf('article') >= 0)
+	{
+		index = 1;
+		console.log('article manager comming!');
+		$('.menu-ul').children().eq(index).addClass('active').siblings().removeClass('active');
+	}
 	else 
 	{
-		$('.menu-ul').children().eq(index).addClass('active').siblings().removeClass('active')
+		$('.menu-ul').children().eq(index).addClass('active').siblings().removeClass('active');
 	}
 })

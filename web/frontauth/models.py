@@ -2,7 +2,7 @@ from django.db import models
 import uuid
 # Create your models here.
 
-
+#注册用户模型
 class frontAuthModel(models.Model):
 	uid = models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False)
 	username = models.CharField(max_length=20,unique=True)
@@ -19,6 +19,7 @@ class frontAuthModel(models.Model):
 
 	#make_password()
 
+#注册用户相互关注模型
 class authReationModel(models.Model):
 	type = (
 		('1','attention'),
