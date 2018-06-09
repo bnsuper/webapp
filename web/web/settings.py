@@ -136,4 +136,4 @@ STATIC_URL = '/static/'
 LOGIN_URL = '/cms/login/'
 
 #单页显示的注册量
-C_AUTHORS = 1
+C_AUTHORS = 15
