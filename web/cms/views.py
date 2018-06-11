@@ -104,9 +104,8 @@ def cms_login(request):
 			return JsonResponse(form.errors)
 
 
-def cms_article_manager(request,current_page='1'):
-	c_page = int(current_page)
-	return render(request,'cms_article_manager.html')
+def cms_article_manager(request):
+	return render(request,'cms_article_manage.html')
 
 
 @login_required

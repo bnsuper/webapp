@@ -1,0 +1,38 @@
+{% extends "cms_base.html" %}
+{% load static %}
+
+{% block titleblock %}
+	文章管理
+{% endblock titleblock %}
+
+{% block content_headblock %}
+	<script src="{% static "js/cms_article_manage_base.js" %}"></script>
+	<link href="{% static "css/cms_article_manage_base.css" %}" rel="stylesheet">
+	{% block article_headblock %}
+		
+	{% endblock article_headblock %}
+{% endblock content_headblock %}
+
+{% block contentblock %}
+	<div class="container article-manager">
+		<div class="row">
+			<div class="col-md-12">
+				<h1>文章管理</h1>
+				<nav>
+					<ul class="nav nav-tabs">
+					  <li role="presentation" class="active"><a href="#">文章管理</a></li>
+					  <li role="presentation"><a href="#">分类管理</a></li>
+					  <li role="presentation"><a href="#">评论管理</a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+
+
+		{% block manageblock %}
+		{% endblock manageblock %}
+
+	</div>
+
+
+{% endblock contentblock %}
