@@ -30,7 +30,7 @@ def cms_index(request,current_page=1):
 	#当前页
 	c_page = int(current_page)
 	#所有的注册用户，这是queryset
-	authors = frontAuthModel.objects.all()
+	authors = frontAuthModel.objects.all().order_by('-regist_time')
 	authors_count = authors.count()
 	all_pages = authors_count/c_authors
 	if authors_count%c_authors != 0:
