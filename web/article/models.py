@@ -8,11 +8,11 @@ class ArticleModel(models.Model):
 	uid = models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False)
 	title = models.CharField(max_length=200)
 	content_html = models.TextField()
-	author = models.ForeignKey(frontAuthModel,on_delete=models.CASCADE)
-	category = models.ForeignKey('CategoryModel',on_delete=models.CASCADE)
+	author = models.ForeignKey(frontAuthModel,on_delete=models.CASCADE,null=True)
+	category = models.ForeignKey('CategoryModel',on_delete=models.CASCADE,null=True)
 	release_time = models.DateTimeField(auto_now_add=True)
 	update_time = models.DateTimeField(auto_now=True)
-	read_count = models.IntegerField()
+	read_count = models.IntegerField(null=True)
 
 
 #分类模型
