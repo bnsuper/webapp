@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: bn
 # @Date:   2018-05-28 22:57:07
-# @Last Modified by:   bn
-# @Last Modified time: 2018-05-29 00:07:50
+# @Last Modified by:   chenbin
+# @Last Modified time: 2018-06-22 11:55:10
 from django import forms
 
 class cms_loginForm(forms.Form):
@@ -11,5 +11,6 @@ class cms_loginForm(forms.Form):
 	remember = forms.BooleanField(required=False)
 
 
-
+class cmsDeleteAuthorForm(forms.Form):
+	author_uid = forms.UUIDField(required=True)
 

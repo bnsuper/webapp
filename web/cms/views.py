@@ -13,6 +13,8 @@ from django.conf import settings
 from random import randint
 from cms.utils import makeAuthors
 from django.db.models import Count
+from cms.forms import cmsDeleteAuthorForm
+from utils import bnjson
 # Create your views here.
 
 #current_page指当前页，count指文章或者注册用户数量
@@ -52,7 +54,6 @@ def page(current_page,count):
 			temp += 1
 	#排序后的pages
 	pages.sort()
-	print(pages)
 	number = end - c_authors
 	context = {
 		'c_page': c_page,
@@ -88,6 +89,38 @@ def cms_index(request,current_page=1):
 	}
 	context.update(context0)
 	return render(request,'cms_index.html',context=context)
+
+@require_http_methods(['POST'])
+def cms_author_delete(request):
+	form = cmsDeleteAuthorForm(request.POST)
+	if form.is_valid():
+		uid = form.cleaned_data.get('author_uid')
+		author = frontAuthModel.objects.filter(pk=uid).first()
+		if author:
+			author.delete()
+			return bnjson.json_result(message='该用户已被删除')
+		else:
+			return bnjson.json_params_error(message='没有该用户！')
+	else:
+		return bnjson.json_params_error(message=form.errors)
+
+@login_required
+@require_http_methods(['POST'])
+def cms_author_modify(request,uid):
+	form = cmsDeleteAuthorForm(request.POST)
+	if form.is_valid():
+		uid = form.cleaned_data.get('author_uid')
+		author = frontAuthModel.objects.filter(pk=uid).first()
+		if author:
+			context={
+				'author':author
+			}
+			return render(request,'cms_author_modify.html',context=context)
+		else:
+			return bnjson.json_params_error(message='没有该用户，无法修改！')
+
+	else:
+		return bnjson.json_params_error(message=form.errors)
 
 @require_http_methods(['GET','POST'])
 def cms_login(request):
@@ -134,16 +167,9 @@ def cms_article_manager(request,current_page=1):
 
 @login_required
 def cms_test(request):
-	# author_list = makeAuthors(10)
-	# for author in author_list:
-	# 	print(author)
-	# # auth = frontAuthModel(**kwargs)
-	# # auth.save()
-	# return HttpResponse('测试页面！')
-	kwargs = {
-		'title':'刮刮乐',
-		'content_html':'400块给不给'
-	}
-	article = ArticleModel(**kwargs)
-	article.save()
+	author_list = makeAuthors(10)
+	for author in author_list:
+		print(author)
+	# auth = frontAuthModel(**kwargs)
+	# auth.save()
 	return HttpResponse('这里是测试页面')
