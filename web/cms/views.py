@@ -105,22 +105,16 @@ def cms_author_delete(request):
 		return bnjson.json_params_error(message=form.errors)
 
 @login_required
-@require_http_methods(['POST'])
+@require_http_methods(['POST','GET'])
 def cms_author_modify(request,uid):
-	form = cmsDeleteAuthorForm(request.POST)
-	if form.is_valid():
-		uid = form.cleaned_data.get('author_uid')
+	if request.method == 'GET':
 		author = frontAuthModel.objects.filter(pk=uid).first()
-		if author:
-			context={
-				'author':author
-			}
-			return render(request,'cms_author_modify.html',context=context)
-		else:
-			return bnjson.json_params_error(message='没有该用户，无法修改！')
-
+		context={
+			'author':author
+		}
+		return render(request,'cms_author_modify.html',context=context)
 	else:
-		return bnjson.json_params_error(message=form.errors)
+		pass
 
 @require_http_methods(['GET','POST'])
 def cms_login(request):

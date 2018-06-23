@@ -1,7 +1,18 @@
 {% extends "cms_base.html" %}
 {% load static %}
 
+{% block titleblock %}
+	用户信息修改
+{% endblock titleblock %}
+
+{% block content_headblock %}
+	<script src="{% static "js/cms_author_modify.js" %}"></script>
+	<link href="{% static "css/cms_author_modify.css" %}" rel="stylesheet">
+{% endblock content_headblock %}
+
 {% block contentblock %}
 	<p>修改页面！</p>
-
+	<p>{{author.username}}</p>
+	<p>{{author.tel}}</p>
+	<p>{{author.email}}</p>
 {% endblock contentblock %}

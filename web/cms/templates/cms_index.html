@@ -33,7 +33,7 @@
 				          <td>{{author.email}}</td>
 				          <td>{{author.regist_time|date:"Y/m/d H:i"}}</td>
 				          <td class="modify-td">
-				          	<a href="">修改</a><span>&nbsp&nbsp|&nbsp&nbsp</span>
+				          	<a href="{% url 'cms_author_modify' uid=author.uid %}">修改</a><span>&nbsp&nbsp|&nbsp&nbsp</span>
 				          	<a href="" class="auth-delete">删除&nbsp&nbsp</a>
 				          </td>
 				        </tr>
