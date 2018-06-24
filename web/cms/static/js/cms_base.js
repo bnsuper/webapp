@@ -1,8 +1,8 @@
 /*
 * @Author: bn
 * @Date:   2018-06-05 20:53:56
-* @Last Modified by:   chenbin
-* @Last Modified time: 2018-06-09 11:23:48
+* @Last Modified by:   bn
+* @Last Modified time: 2018-06-24 23:00:15
 */
 'use strict'
 
@@ -15,16 +15,18 @@ $(function(){
 	var index = 0;
 	if (url.indexOf('authors') >= 0) 
 	{
-		index = 0;
-		console.log('comming!');
-		console.log(index)
-		$('.menu-ul').children().eq(index).addClass('active').siblings().removeClass('active');
+			index = 0;
+			console.log('comming!');
+			console.log(index)
+			$('.menu-ul').children().eq(index).addClass('active').siblings().removeClass('active');
+
 	} 
 	else if(url.indexOf('article') >= 0)
 	{
-		index = 1;
-		console.log('article manager comming!');
-		$('.menu-ul').children().eq(index).addClass('active').siblings().removeClass('active');
+			index = 1;
+			console.log('article manager comming!');
+			$('.menu-ul').children().eq(index).addClass('active').siblings().removeClass('active');
+
 	}
 	else 
 	{

@@ -2,12 +2,17 @@
 * @Author: chenbin
 * @Date:   2018-06-09 11:08:46
 * @Last Modified by:   chenbin
-* @Last Modified time: 2018-06-09 11:21:56
+* @Last Modified time: 2018-06-11 11:57:03
 */
 
 h1{
 	text-align: center;
 	color: skyblue;
+	margin-top: 0px;
 	/*background: yellow;*/
 /*	padding-right: 50px;*/
+}
+
+.article-manager .row{
+	margin-bottom: 20px;
 }

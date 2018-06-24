@@ -39,14 +39,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cms',
     'mytest',
-    'frontauth'
+    'frontauth',
+    'article',
+    'common'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -119,7 +121,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'zh-Hans'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
@@ -144,5 +146,5 @@ BEGIN_NAME = ['赵', '钱', '孙', '李', '周', '吴', '郑', '王', '冯', '�
 END_NAME = ['大笑', '微笑','淡笑','讥笑', '傲笑', '讪笑', '傻笑', '嗤笑', '嘻笑', '奸笑', '狂笑', '狞笑', '憨笑', '苦笑', '惨笑','嘲笑', '冷笑', '耻笑', '呆笑', '痴知', '揶揄', '粲然', '嫣然', '莞尔', '嘿嘿', '呵呵', '格格', '扑哧', '哑然','行走', '奔跑', '跳跃','踢打', '跨越', '蹲下', '站立', '奔走', '奔逃', '奔赴', '奔腾', '逃遁', '跋涉', '徘徊', '彷徨','徙倚', '逡巡', '匍匐', '踟躇', '踯躅', '蹒跚', '踉跄', '蹀躞', '蹉跌', '跄跄', '踽踽', '趑趄', '趔趄','蹦跳', '蹦达', '溜达', '雀跃', '欢跃', '挺立', '伫立', '散步', '漫步', '踏步', '信步', '转悠', '闲逛']
 
 
-#]
+
 

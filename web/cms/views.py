@@ -8,32 +8,24 @@ from django.contrib.auth import authenticate,login
 from django.contrib.sessions.models import Session
 from django.forms.models import model_to_dict
 from frontauth.models import frontAuthModel,authReationModel
+from article.models import ArticleModel,CommentModel
 from django.conf import settings
 from random import randint
 from cms.utils import makeAuthors
+from django.db.models import Count
+from cms.forms import cmsDeleteAuthorForm
+from utils import bnjson
 # Create your views here.
 
-@login_required
-def cms_index(request,current_page=1):
-	# sessionid = request.COOKIES.get('sessionid')
-	# print('-'*10)
-	# sqlsession = Session.objects.filter(session_key=sessionid).first()
-	# print('sqlsession:',model_to_dict(sqlsession))
-	# print('-'*10)
-	# request.session['chenbin'] = 998
-	# print('request.session:',request.session.items())
-	# print('-'*10)
-	# print('request.session.session_key:',request.session.session_key)
-	# print('-'*10)
-	# print(dir(request.session))
+#current_page指当前页，count指文章或者注册用户数量
+def page(current_page,count):
+	#当前页展示的用户或者文章数量
 	c_authors = settings.C_AUTHORS
 	#当前页
 	c_page = int(current_page)
 	#所有的注册用户，这是queryset
-	authors = frontAuthModel.objects.all().order_by('-regist_time')
-	authors_count = authors.count()
-	all_pages = authors_count/c_authors
-	if authors_count%c_authors != 0:
+	all_pages = count/c_authors
+	if count%c_authors != 0:
 		#总页数
 		all_pages = int(all_pages) + 1
 	else:
@@ -41,8 +33,6 @@ def cms_index(request,current_page=1):
 	#切片开始和结束的位置
 	end = c_page*c_authors
 	begin = end - c_authors
-	#每页的文章切片
-	authors_dice = authors[begin:end]
 	#显示的分页数[1,2,3,4,5]
 	pages = []
 	#向前找
@@ -64,17 +54,67 @@ def cms_index(request,current_page=1):
 			temp += 1
 	#排序后的pages
 	pages.sort()
-	print(pages)
-	number = end - 15
+	number = end - c_authors
 	context = {
-		'authors': authors,
 		'c_page': c_page,
-		'authors': authors_dice,
 		'pages': pages,
 		'all_pages': all_pages,
 		'number': number
 	}
+	return (context,(begin,end))
+
+@login_required
+def cms_index(request,current_page=1):
+	# sessionid = request.COOKIES.get('sessionid')
+	# print('-'*10)
+	# sqlsession = Session.objects.filter(session_key=sessionid).first()
+	# print('sqlsession:',model_to_dict(sqlsession))
+	# print('-'*10)
+	# request.session['chenbin'] = 998
+	# print('request.session:',request.session.items())
+	# print('-'*10)
+	# print('request.session.session_key:',request.session.session_key)
+	# print('-'*10)
+	# print(dir(request.session))
+	#所有的注册用户，这是queryset
+	authors = frontAuthModel.objects.all().order_by('-regist_time')
+	authors_count = authors.count()
+	page_result = page(current_page,authors_count)
+	context0 = page_result[0]
+	begin = page_result[1][0]
+	end = page_result[1][1]
+	authors_dice = authors[begin:end]
+	context = {
+		'authors': authors_dice,
+	}
+	context.update(context0)
 	return render(request,'cms_index.html',context=context)
+
+@require_http_methods(['POST'])
+def cms_author_delete(request):
+	form = cmsDeleteAuthorForm(request.POST)
+	if form.is_valid():
+		uid = form.cleaned_data.get('author_uid')
+		author = frontAuthModel.objects.filter(pk=uid).first()
+		if author:
+			author.delete()
+			return bnjson.json_result(message='该用户已被删除')
+		else:
+			return bnjson.json_params_error(message='没有该用户！')
+	else:
+		return bnjson.json_params_error(message=form.errors)
+
+@login_required
+@require_http_methods(['POST','GET'])
+def cms_author_modify(request,uid):
+	if request.method == 'GET':
+		author = frontAuthModel.objects.filter(pk=uid).first()
+		context={
+			'author':author
+		}
+		return render(request,'cms_author_modify.html',context=context)
+	else:
+		pass
 
 @require_http_methods(['GET','POST'])
 def cms_login(request):
@@ -104,16 +144,27 @@ def cms_login(request):
 			return JsonResponse(form.errors)
 
 
-def cms_article_manager(request,current_page='1'):
-	c_page = int(current_page)
-	return render(request,'cms_article_manager.html')
+def cms_article_manager(request,current_page=1):
+	articles = ArticleModel.objects.annotate(num_comment=Count('commentmodel')).order_by('release_time')
+	article_count = articles.count()
+	page_result = page(current_page,article_count)
+	begin = page_result[1][0]
+	end = page_result[1][1]
+	article_dice = articles[begin:end]
+	context0 = page_result[0]
+	context = {
+		'articles':article_dice
+	}
+	context.update(context0)
+	return render(request,'cms_article_manage.html',context)
 
 
 @login_required
 def cms_test(request):
-	author_list = makeAuthors(10)
+	author_list = makeAuthors(100)
 	for author in author_list:
-		print(author)
+		Author = frontAuthModel(**author)
+		Author.save()
 	# auth = frontAuthModel(**kwargs)
 	# auth.save()
-	return HttpResponse('测试页面！')
+	return HttpResponse('这里是测试页面')

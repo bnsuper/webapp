@@ -1,0 +1,43 @@
+{% extends "cms_base.html" %}
+{% load static %}
+
+{% block titleblock %}
+	用户信息修改
+{% endblock titleblock %}
+
+{% block content_headblock %}
+	<script src="{% static "js/cms_author_modify.js" %}"></script>
+	<link href="{% static "css/cms_author_modify.css" %}" rel="stylesheet">
+{% endblock content_headblock %}
+
+{% block contentblock %}
+	<div class="container">
+		<h1>用户信息修改</h1>
+		<div class="row form-modify-row">
+				<form class="form-modify">
+					  <div class="form-group">
+					    <div class="input-group">
+						  <span class="input-group-addon" id="basic-addon1">用户名</span>
+						  <input type="text" class="form-control" value="{{author.username}}" aria-describedby="basic-addon1" name="username" readonly>
+						</div>
+					  </div>
+
+					  <div class="form-group">
+					    <div class="input-group">
+						  <span class="input-group-addon glyphicon glyphicon-earphone" id="basic-addon1"></span>
+						  <input type="text" class="form-control" value="{{author.tel}}" aria-describedby="basic-addon1" name="tel" readonly>
+						</div>
+					  </div>
+					
+
+					  <div class="form-group">
+					    <div class="input-group">
+						  <span class="input-group-addon glyphicon glyphicon-envelope" id="basic-addon1"></span>
+						  <input type="text" class="form-control" value="{{author.email}}" aria-describedby="basic-addon1" name="email" readonly>
+						</div>
+					  </div>
+					  <button type="submit" class="btn btn-primary form-control">修改</button>
+				</form>
+		</div>
+	</div>
+{% endblock contentblock %}
