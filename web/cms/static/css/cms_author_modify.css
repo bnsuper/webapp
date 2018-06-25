@@ -1,8 +1,8 @@
 /*
 * @Author: chenbin
 * @Date:   2018-06-23 09:13:24
-* @Last Modified by:   bn
-* @Last Modified time: 2018-06-24 22:47:41
+* @Last Modified by:   chenbin
+* @Last Modified time: 2018-06-25 13:50:28
 */
 .form-modify-row{
 	margin-top: px;
@@ -21,4 +21,8 @@ h1{
 
 .form-control{
 	margin-top: 1px;
+}
+
+.text-success,.text-warning{
+	text-align: center;
 }

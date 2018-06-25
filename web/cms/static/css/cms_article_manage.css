@@ -2,7 +2,7 @@
 * @Author: chenbin
 * @Date:   2018-06-11 11:58:45
 * @Last Modified by:   chenbin
-* @Last Modified time: 2018-06-11 15:26:21
+* @Last Modified time: 2018-06-25 09:43:11
 */
 /*.table th:nth-of-type(0){
 	width: 25%;
@@ -44,3 +44,8 @@
 .nav-page{
 	text-align: center;
 }
+
+.form-group{
+	margin-right: 10px;
+}
+

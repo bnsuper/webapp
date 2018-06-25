@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect,reverse
 from django.http import HttpResponse,JsonResponse
 from django.shortcuts import redirect,reverse
-from cms.forms import cms_loginForm
+from cms.forms import cms_loginForm,cmsfrontAuthForm
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login
@@ -15,6 +15,7 @@ from cms.utils import makeAuthors
 from django.db.models import Count
 from cms.forms import cmsDeleteAuthorForm
 from utils import bnjson
+from django.utils import timezone
 # Create your views here.
 
 #current_page指当前页，count指文章或者注册用户数量
@@ -114,8 +115,33 @@ def cms_author_modify(request,uid):
 		}
 		return render(request,'cms_author_modify.html',context=context)
 	else:
-		pass
-
+		form = cmsfrontAuthForm(request.POST)
+		if form.is_valid():
+			author = frontAuthModel.objects.filter(pk=uid).first()
+			new_psw = form.cleaned_data.get('new_psw')
+			print(new_psw)
+			author.password = new_psw
+			author.save(update_fields=['password'])
+			context={
+			'author':author,
+			'modify_result':'密码修改成功！'
+			}
+			return render(request,'cms_author_modify.html',context=context)
+		else:
+			error_dict = form.errors.as_data()
+			print(error_dict)
+			message = ''
+			for key in error_dict.keys():
+				message = error_dict[key][0]
+				break
+			#将ValidationError中的字符串提取出来
+			message = message.messages[0]
+			author = frontAuthModel.objects.filter(pk=uid).first()
+			context={
+			'author':author,
+			'modify_fail':message
+			}
+			return render(request,'cms_author_modify.html',context=context)
 @require_http_methods(['GET','POST'])
 def cms_login(request):
 	if request.method == 'GET':
@@ -161,10 +187,11 @@ def cms_article_manager(request,current_page=1):
 
 @login_required
 def cms_test(request):
-	author_list = makeAuthors(100)
+	author_list = makeAuthors(1)
 	for author in author_list:
 		Author = frontAuthModel(**author)
 		Author.save()
-	# auth = frontAuthModel(**kwargs)
-	# auth.save()
+	now = timezone.now()
+	print('timezone.now()=',now)
+	print('type:',type(now))
 	return HttpResponse('这里是测试页面')
