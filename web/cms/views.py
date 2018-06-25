@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib.sessions.models import Session
 from django.forms.models import model_to_dict
 from frontauth.models import frontAuthModel,authReationModel
-from article.models import ArticleModel,CommentModel
+from article.models import ArticleModel,CommentModel,CategoryModel,SupportModel
 from django.conf import settings
 from random import randint
 from cms.utils import makeAuthors
@@ -199,8 +199,9 @@ def cms_article_query(request):
 		author = form.cleaned_data.get('author')
 		category = form.cleaned_data.get('category')
 		#目前只能按标题查询，此处有待完善
-		articles = ArticleModel.objects.filter(Q(title__contains=title))
-		article_list = list(articles.values())
+		articles = ArticleModel.objects.filter(Q(title__contains=title)&Q(author__username__contains=author)&Q(category__name__contains=category))
+		article_list = list(articles.values('title','author__username','category__name','release_time','read_count'))
+		print(article_list)
 		return bnjson.json_result(message='查询成功！',data=article_list)
 	else:
 		return bnjson.json_params_error(message=form.errors)
@@ -208,11 +209,26 @@ def cms_article_query(request):
 
 @login_required
 def cms_test(request):
-	author_list = makeAuthors(1)
-	for author in author_list:
-		Author = frontAuthModel(**author)
-		Author.save()
-	now = timezone.now()
-	print('timezone.now()=',now)
-	print('type:',type(now))
+	# author_list = makeAuthors(1)
+	# for author in author_list:
+	# 	Author = frontAuthModel(**author)
+	# 	Author.save()
+	# now = timezone.now()
+	# print('timezone.now()=',now)
+	# print('type:',type(now))
+
+	# author = frontAuthModel.objects.filter(email='151251@qq.com').first()
+	# category = CategoryModel.objects.filter(name='电影').first()
+	# kwards = {
+	# 	'title':'大学',
+	# 	'content_html':'大学生活很快乐！',
+	# 	'author':author,
+	# 	'category':category,
+	# 	'read_count':80
+	# }
+	# articel = ArticleModel(**kwards)
+	# articel.save()
+	articles = ArticleModel.objects.select_related('author__username')
+	print(type(articles))
+	print(articles.values())
 	return HttpResponse('这里是测试页面')
