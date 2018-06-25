@@ -2,7 +2,7 @@
 # @Author: bn
 # @Date:   2018-05-28 22:57:07
 # @Last Modified by:   chenbin
-# @Last Modified time: 2018-06-25 13:45:45
+# @Last Modified time: 2018-06-25 17:07:07
 from django import forms
 
 class cms_loginForm(forms.Form):
@@ -19,3 +19,8 @@ class cmsfrontAuthForm(forms.Form):
 	tel = forms.CharField(max_length=20)
 	email = forms.EmailField()
 	new_psw = forms.CharField(min_length=6,error_messages={'min_length':'密码至少6位！','required':'请输入新密码！'})
+
+class cmsArticleQueryForm(forms.Form):
+	title = forms.CharField(max_length=20,required=False)
+	author = forms.CharField(max_length=20,required=False)
+	category = forms.CharField(max_length=20,required=False)

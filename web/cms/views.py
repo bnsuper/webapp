@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect,reverse
 from django.http import HttpResponse,JsonResponse
 from django.shortcuts import redirect,reverse
-from cms.forms import cms_loginForm,cmsfrontAuthForm
+from cms.forms import cms_loginForm,cmsfrontAuthForm,cmsArticleQueryForm
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login,logout
@@ -16,6 +16,7 @@ from django.db.models import Count
 from cms.forms import cmsDeleteAuthorForm
 from utils import bnjson
 from django.utils import timezone
+from django.db.models import Q
 # Create your views here.
 
 #current_page指当前页，count指文章或者注册用户数量
@@ -117,9 +118,11 @@ def cms_author_modify(request,uid):
 	else:
 		form = cmsfrontAuthForm(request.POST)
 		if form.is_valid():
+			print('-'*30)
+			print(type(form.cleaned_data))
+			print('-'*30)
 			author = frontAuthModel.objects.filter(pk=uid).first()
 			new_psw = form.cleaned_data.get('new_psw')
-			print(new_psw)
 			author.password = new_psw
 			author.save(update_fields=['password'])
 			context={
@@ -187,6 +190,20 @@ def cms_article_manager(request,current_page=1):
 	}
 	context.update(context0)
 	return render(request,'cms_article_manage.html',context)
+
+@require_http_methods(['POST'])
+def cms_article_query(request):
+	form = cmsArticleQueryForm(request.POST)
+	if form.is_valid():
+		title = form.cleaned_data.get('title')
+		author = form.cleaned_data.get('author')
+		category = form.cleaned_data.get('category')
+		#目前只能按标题查询，此处有待完善
+		articles = ArticleModel.objects.filter(Q(title__contains=title))
+		article_list = list(articles.values())
+		return bnjson.json_result(message='查询成功！',data=article_list)
+	else:
+		return bnjson.json_params_error(message=form.errors)
 
 
 @login_required
