@@ -4,7 +4,7 @@ from django.shortcuts import redirect,reverse
 from cms.forms import cms_loginForm,cmsfrontAuthForm
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate,login,logout
 from django.contrib.sessions.models import Session
 from django.forms.models import model_to_dict
 from frontauth.models import frontAuthModel,authReationModel
@@ -142,6 +142,7 @@ def cms_author_modify(request,uid):
 			'modify_fail':message
 			}
 			return render(request,'cms_author_modify.html',context=context)
+
 @require_http_methods(['GET','POST'])
 def cms_login(request):
 	if request.method == 'GET':
@@ -169,6 +170,9 @@ def cms_login(request):
 		else:
 			return JsonResponse(form.errors)
 
+def cms_logout(request):
+	logout(request)
+	return redirect('cms_login')
 
 def cms_article_manager(request,current_page=1):
 	articles = ArticleModel.objects.annotate(num_comment=Count('commentmodel')).order_by('release_time')

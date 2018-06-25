@@ -9,5 +9,6 @@ urlpatterns = [
     url(r'^authors/modify/(?P<uid>[\w\-]+)/$', views.cms_author_modify, name='cms_author_modify'),
     url(r'^article/(?P<current_page>\d+)/$', views.cms_article_manager, name='cms_article_manager'),
     url(r'^login/$', views.cms_login, name='cms_login'),
+    url(r'^logout/$', views.cms_logout, name='cms_logout'),
     url(r'^test/$', views.cms_test, name='cms_test'),
 ]
