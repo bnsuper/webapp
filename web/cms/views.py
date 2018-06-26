@@ -19,8 +19,10 @@ from django.utils import timezone
 from django.db.models import Q
 # Create your views here.
 
-#current_page指当前页，count指文章或者注册用户数量
-def page(current_page,count):
+#current_page指当前页，query_result指queryset的查询结果,query_name指的是切片的key名称
+def page(current_page,query_result,query_name):
+	#count指文章或者注册用户数量
+	count = len(query_result)
 	#当前页展示的用户或者文章数量
 	c_authors = settings.C_AUTHORS
 	#当前页
@@ -35,6 +37,7 @@ def page(current_page,count):
 	#切片开始和结束的位置
 	end = c_page*c_authors
 	begin = end - c_authors
+	query_dice = query_result[begin:end]
 	#显示的分页数[1,2,3,4,5]
 	pages = []
 	#向前找
@@ -61,9 +64,10 @@ def page(current_page,count):
 		'c_page': c_page,
 		'pages': pages,
 		'all_pages': all_pages,
-		'number': number
+		'number': number,
+		 query_name: query_dice
 	}
-	return (context,(begin,end))
+	return context
 
 @login_required
 def cms_index(request,current_page=1):
@@ -79,17 +83,9 @@ def cms_index(request,current_page=1):
 	# print('-'*10)
 	# print(dir(request.session))
 	#所有的注册用户，这是queryset
+	c_page = int(current_page)
 	authors = frontAuthModel.objects.all().order_by('-regist_time')
-	authors_count = authors.count()
-	page_result = page(current_page,authors_count)
-	context0 = page_result[0]
-	begin = page_result[1][0]
-	end = page_result[1][1]
-	authors_dice = authors[begin:end]
-	context = {
-		'authors': authors_dice,
-	}
-	context.update(context0)
+	context = page(c_page,authors,query_name='authors')
 	return render(request,'cms_index.html',context=context)
 
 @require_http_methods(['POST'])
@@ -177,19 +173,10 @@ def cms_logout(request):
 	logout(request)
 	return redirect('cms_login')
 
-def cms_article_manager(request,current_page=1):
-	articles = ArticleModel.objects.annotate(num_comment=Count('commentmodel')).order_by('release_time')
-	article_count = articles.count()
-	page_result = page(current_page,article_count)
-	begin = page_result[1][0]
-	end = page_result[1][1]
-	article_dice = articles[begin:end]
-	context0 = page_result[0]
-	context = {
-		'articles':article_dice
-	}
-	context.update(context0)
-	return render(request,'cms_article_manage.html',context)
+@login_required
+@require_http_methods(['GET'])
+def cms_article_manager(request):
+	return render(request,'cms_article_manage.html')
 
 @require_http_methods(['POST'])
 def cms_article_query(request):
@@ -198,11 +185,12 @@ def cms_article_query(request):
 		title = form.cleaned_data.get('title')
 		author = form.cleaned_data.get('author')
 		category = form.cleaned_data.get('category')
+		c_page = form.cleaned_data.get('c_page')
 		#目前只能按标题查询，此处有待完善
 		articles = ArticleModel.objects.filter(Q(title__contains=title)&Q(author__username__contains=author)&Q(category__name__contains=category))
 		article_list = list(articles.values('title','author__username','category__name','release_time','read_count'))
-		print(article_list)
-		return bnjson.json_result(message='查询成功！',data=article_list)
+		context = page(c_page,article_list,query_name='article')
+		return bnjson.json_result(message='查询成功！',data=context)
 	else:
 		return bnjson.json_params_error(message=form.errors)
 
@@ -213,22 +201,35 @@ def cms_test(request):
 	# for author in author_list:
 	# 	Author = frontAuthModel(**author)
 	# 	Author.save()
-	# now = timezone.now()
-	# print('timezone.now()=',now)
-	# print('type:',type(now))
 
-	# author = frontAuthModel.objects.filter(email='151251@qq.com').first()
-	# category = CategoryModel.objects.filter(name='电影').first()
-	# kwards = {
-	# 	'title':'大学',
-	# 	'content_html':'大学生活很快乐！',
-	# 	'author':author,
-	# 	'category':category,
-	# 	'read_count':80
-	# }
-	# articel = ArticleModel(**kwards)
-	# articel.save()
-	articles = ArticleModel.objects.select_related('author__username')
-	print(type(articles))
-	print(articles.values())
+	# author = frontAuthModel(username='伊万卡',tel='15999994599',email='yiwanka@sina.com',password='123456')
+	# author.save()
+
+	# category = CategoryModel(name='历史')
+	# category.save()
+
+	author = frontAuthModel.objects.filter(username='汪峰').first()
+	category = CategoryModel.objects.filter(name='历史').first()
+	kwards = {
+		'title':'感谢身边的懒人',
+		'content_html':'童话里都是骗人的！',
+		'author':author,
+		'category':category,
+		'read_count':80
+	}
+	articel = ArticleModel(**kwards)
+	articel.save()
+
+	# article = ArticleModel.objects.filter(title='标题').first()
+	# article.author = author
+	# article.category = category
+	# article.read_count = 28
+	# article.save(update_fields=['read_count'])
+
+	# articles = ArticleModel.objects.filter(author__isnull=True)
+	# articles.update(author=author,category=category,read_count=36)
+
+	# articles = ArticleModel.objects.select_related('author__username')
+	# print(type(articles))
+	# print(articles.values())
 	return HttpResponse('这里是测试页面')

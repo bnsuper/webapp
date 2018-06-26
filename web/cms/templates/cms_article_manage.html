@@ -2,6 +2,54 @@
 {% load static %}
 
 {% block article_headblock %}
+	{% verbatim %}
+		<script id="page" type="text/html">
+			 <nav aria-label="..." class="nav-page">
+			      <ul class="pagination">
+
+			        {{if c_page > 1}}
+			        	<li><a href="#" aria-label="Previous" page="{{c_page-1}}" class="page-a"><span aria-hidden="true">&laquo;</span></a></li>
+			        	{{else}}
+			        	<li class="disabled"><span aria-hidden="true">&laquo;</span></li>
+			        {{/if}}
+
+						{{each pages as value i}}
+							{{if value == c_page}}
+								<li class="active"><span>{{value}}</span></li>
+								{{else}}
+								<li><a href="#" page="{{value}}" class="page-a">{{value}}</a></li>
+							{{/if}}
+						{{/each}}
+
+			        {{if c_page < all_pages}}
+			        	 <li><a href="#" aria-label="Next" class="page-a" page="{{c_page+1}}"><span aria-hidden="true" >&raquo;</span></a></li>
+			        	{{else}}
+			        	  <li class="disabled"><span aria-hidden="true">&raquo;</span></li>
+			        {{/if}}
+			     </ul>
+			 </nav>
+		</script>
+	{% endverbatim %}
+
+	{% verbatim %}
+		<script id="article" type="text/html">
+			{{each articles article i}}
+				<tr>
+				  <td>{{article.title}}</th>
+				  <td>{{article.author__username}}</td>
+				  <td>{{article.category__name}}</td>
+				  <td>{{article.release_time | dateFormat:'yyyy-MM-dd hh:mm'}}</td>
+				  <td>{{article.read_count}}</td>
+				  <td>0</td>
+				  <td class="modify-td">
+					<a href="">修改</a><span>&nbsp&nbsp|&nbsp&nbsp</span>
+					<a href="" class="">删除</a><span>&nbsp&nbsp|&nbsp&nbsp</span>
+					<a href="">置顶</a>
+				  </td>
+				</tr>
+			{{/each}}
+		</script>
+	{% endverbatim %}
 	<script src="{% static "js/cms_article_manage.js" %}"></script>
 	<link href="{% static "css/cms_article_manage.css" %}" rel="stylesheet">
 {% endblock article_headblock %}
@@ -47,52 +95,15 @@
 			          <th>操作</th>
 			        </tr>
 			      </thead>
-			      <tbody>
-			      		{% for article in articles %}
-			      			<tr>
-					          <td>{{article.title}}</th>
-					          <td>{{article.author.username}}</td>
-					          <td>{{article.category.name}}</td>
-					          <td>{{article.release_time|date:'Y/m/d H:i'}}</td>
-					          <td>{{article.read_count}}</td>
-					          <td>{{article.num_comment}}</td>
-					          <td class="modify-td">
-					          	<a href="">修改</a><span>&nbsp&nbsp|&nbsp&nbsp</span>
-					          	<a href="" class="">删除</a><span>&nbsp&nbsp|&nbsp&nbsp</span>
-					          	<a href="">置顶</a>
-					          </td>
-					        </tr>
-			      		{% endfor %}
+			      <tbody class="article-tbody">
 			      </tbody>
 			    </table>
 		</div>
 	</div>
 
 	<div class="row">
-		<div class="col-md-12">
-			<nav aria-label="..." class="nav-page">
-		      <ul class="pagination ul-page">
-				{% if c_page == 1 %}
-					<li class="disabled"><span aria-hidden="true">&laquo;</span></li>
-					{% else %}
-					<li><a href="{% url "cms_article_manager" current_page=c_page|add:"-1" %}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-				{% endif %}
-
-		      	{% for page in pages %}
-		      		<li class="{% if c_page == page %}
-		      			active
-		      			{% else %}
-		      		{% endif %}"><a href="{% url "cms_article_manager" current_page=page %}">{{page}}</a></li>
-		      	{% endfor %}
-
-				{% if c_page == all_pages %}
-		      		<li class="disabled"><span aria-hidden="true">&raquo;</span></li>
-		      		{% else %}
-		      		<li><a href="{% url "cms_article_manager" current_page=c_page|add:"1" %}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
-		      	{% endif %}
-
-		     </ul>
-		   </nav>
+		<div class="col-md-12 page-col">
+			<p>分页使用ajax异步加载</p>
 		</div>
 	</div>
 {% endblock manageblock %}
