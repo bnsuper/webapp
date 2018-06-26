@@ -189,6 +189,7 @@ def cms_article_query(request):
 		#目前只能按标题查询，此处有待完善
 		articles = ArticleModel.objects.filter(Q(title__contains=title)&Q(author__username__contains=author)&Q(category__name__contains=category))
 		article_list = list(articles.values('title','author__username','category__name','release_time','read_count'))
+		print(articles)
 		context = page(c_page,article_list,query_name='article')
 		return bnjson.json_result(message='查询成功！',data=context)
 	else:
@@ -209,7 +210,7 @@ def cms_test(request):
 	# category.save()
 
 	author = frontAuthModel.objects.filter(username='汪峰').first()
-	category = CategoryModel.objects.filter(name='历史').first()
+	category = CategoryModel.objects.filter(name='电影').first()
 	kwards = {
 		'title':'感谢身边的懒人',
 		'content_html':'童话里都是骗人的！',

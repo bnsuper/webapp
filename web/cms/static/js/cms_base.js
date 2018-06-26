@@ -2,7 +2,7 @@
 * @Author: bn
 * @Date:   2018-06-05 20:53:56
 * @Last Modified by:   bn
-* @Last Modified time: 2018-06-24 23:00:15
+* @Last Modified time: 2018-06-26 20:59:01
 */
 'use strict'
 
@@ -24,7 +24,7 @@ $(function(){
 	else if(url.indexOf('article') >= 0)
 	{
 			index = 1;
-			console.log('article manager comming!');
+			// console.log('article manager comming!');
 			$('.menu-ul').children().eq(index).addClass('active').siblings().removeClass('active');
 
 	}

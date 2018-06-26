@@ -1,8 +1,8 @@
 /*
 * @Author: chenbin
 * @Date:   2018-06-11 11:58:59
-* @Last Modified by:   chenbin
-* @Last Modified time: 2018-06-26 18:07:16
+* @Last Modified by:   bn
+* @Last Modified time: 2018-06-26 21:18:31
 */
 
 var art = function(data){
@@ -39,42 +39,14 @@ var f = $(function(){
 				'c_page': '1'
 			},
 			success:function(data){
+				// console.log(data)
 				art(data)
 			},	
 			error:function(err){
 				alert(err)
 			},
 			complete:function(){
-				console.log('ajax is completed')
-				console.log($('.page-a'))
-				// $('.page-a').click(function(event){
-				// 	event.preventDefault();
-				// 	console.log('hello world!')
-				// 	var title = $("input[name='title']").val()
-				// 	var author = $("input[name='author']").val()
-				// 	var category = $("input[name='category']").val()
-				// 	var c_page = $(this).attr('page')
-				// 	console.log(c_page)
-				// 	bnajax.post({
-				// 		url:'/cms/article/query/',
-				// 		data:{
-				// 			'title':title,
-				// 			'author':author,
-				// 			'category':category,
-				// 			'c_page': c_page
-				// 		},
-				// 		success:function(data){
-				// 			art(data)
-				// 		},
-				// 		error:function(err){
-				// 			alert(err)
-				// 		},
-				// 		complete:function(){
-				// 			console.log('welcome!')
-				// 		}
-				// 	})
-				// });
-
+				// console.log('ajax is completed')
 			}
 		})
 })
@@ -109,52 +81,18 @@ $(function(){
 	});
 })
 
-	// $('.pagination').delegate('a','f',function(event){
-	// 	event.preventDefault()
-
-	// })
-
-
-
-
 
 
 
 $(function(){
-	console.log($('.pagination'));
-	// $('.page-a').live("click",function(event){
-	// 	event.preventDefault();
-	// 	console.log('commint nice nice')
-	// 	var title = $("input[name='title']").val()
-	// 	var author = $("input[name='author']").val()
-	// 	var category = $("input[name='category']").val()
-	// 	var c_page = $(this).attr('name')
-	// 	bnajax.post({
-	// 		url:'/cms/article/query/',
-	// 		data:{
-	// 			'title':title,
-	// 			'author':author,
-	// 			'category':category,
-	// 			'c_page': c_page
-	// 		},
-	// 		success:function(data){
-	// 			art(data)
-	// 		},
-	// 		error:function(err){
-	// 			alert(err)
-	// 		},
-	// 		complete:function(){
-	// 			console.log('ajax is completed')
-	// 		}
-	// 	})
-	// })
-	$('.pagination').on("click","li a",function(event){  
+	// console.log('------------------')
+	// console.log($('.pagination'));
+	$('.page-col').on("click",".nav-page li a",function(event){  
 		    event.preventDefault();
-			console.log('commint nice nice')
 			var title = $("input[name='title']").val()
 			var author = $("input[name='author']").val()
 			var category = $("input[name='category']").val()
-			var c_page = $(this).attr('name')
+			var c_page = $(this).attr('page')
 			bnajax.post({
 				url:'/cms/article/query/',
 				data:{
