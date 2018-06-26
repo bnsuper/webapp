@@ -38,6 +38,8 @@ def page(current_page,query_result,query_name):
 	end = c_page*c_authors
 	begin = end - c_authors
 	query_dice = query_result[begin:end]
+	if bool(query_dice) == False:
+		c_page = 1
 	#显示的分页数[1,2,3,4,5]
 	pages = []
 	#向前找
