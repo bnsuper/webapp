@@ -2,7 +2,7 @@
 # @Author: bn
 # @Date:   2018-05-28 22:57:07
 # @Last Modified by:   chenbin
-# @Last Modified time: 2018-06-26 10:22:15
+# @Last Modified time: 2018-06-28 15:53:45
 from django import forms
 
 class cms_loginForm(forms.Form):
@@ -25,3 +25,6 @@ class cmsArticleQueryForm(forms.Form):
 	author = forms.CharField(max_length=20,required=False)
 	category = forms.CharField(max_length=20,required=False)
 	c_page = forms.IntegerField(min_value=1)
+
+class cmsAddCategoryForm(forms.Form):
+	name = forms.CharField(max_length=20)

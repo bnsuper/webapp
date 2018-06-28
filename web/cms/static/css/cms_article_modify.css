@@ -1,0 +1,18 @@
+/*
+* @Author: chenbin
+* @Date:   2018-06-28 09:50:14
+* @Last Modified by:   chenbin
+* @Last Modified time: 2018-06-28 11:16:42
+*/
+h1{
+	text-align: center;
+}
+
+.modify-article-row{
+	margin-top: 40px;
+}
+
+.modify-article-form{
+	width: 800px;
+	margin: 0 auto;
+}

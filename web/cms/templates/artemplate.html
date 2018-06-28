@@ -1,0 +1,55 @@
+<script id="page" type="text/html">
+	 {% verbatim %}
+	 	<nav aria-label="..." class="nav-page">
+		      <ul class="pagination">
+		        {{if c_page > 1}}
+		        	<li><a href="#" aria-label="Previous" page="{{c_page-1}}" class="page-a"><span aria-hidden="true">&laquo;</span></a></li>
+		        	{{else}}
+		        	<li class="disabled"><span aria-hidden="true">&laquo;</span></li>
+		        {{/if}}
+
+					{{each pages as value i}}
+						{{if value == c_page}}
+							<li class="active"><span>{{value}}</span></li>
+							{{else}}
+							<li><a href="#" page="{{value}}" class="page-a">{{value}}</a></li>
+						{{/if}}
+					{{/each}}
+
+		        {{if c_page < all_pages}}
+		        	 <li><a href="#" aria-label="Next" class="page-a" page="{{c_page+1}}"><span aria-hidden="true" >&raquo;</span></a></li>
+		        	{{else}}
+		        	  <li class="disabled"><span aria-hidden="true">&raquo;</span></li>
+		        {{/if}}
+		     </ul>
+		 </nav>
+	 {% endverbatim %}
+</script>
+
+
+<script id="article" type="text/html">
+	{% verbatim %}
+		{{each articles article i}}
+		<tr>
+		  <td>{{article.title}}</th>
+		  <td>{{article.author__username}}</td>
+		  <td>{{article.category__name}}</td>
+		  <td>{{article.release_time | dateFormat:'yyyy-MM-dd hh:mm'}}</td>
+		  <td>{{article.read_count}}</td>
+		  <td>0</td>
+		  <td class="modify-td">
+			<a href="/cms/article/modify/{{article.uid}}">修改</a><span>&nbsp&nbsp|&nbsp&nbsp</span>
+			<a href="" class="">删除</a><span>&nbsp&nbsp|&nbsp&nbsp</span>
+			<a href="">置顶</a>
+		  </td>
+		 </tr>
+		{{/each}}
+	{% endverbatim %}
+</script>
+
+// 分类下拉模板
+<script id="category" type="text/html">
+{% verbatim %}
+	<option value ="{{id}}">{{name}}</option>
+{% endverbatim %}
+</script>

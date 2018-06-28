@@ -1,8 +1,8 @@
 /*
 * @Author: chenbin
 * @Date:   2018-06-11 11:58:59
-* @Last Modified by:   bn
-* @Last Modified time: 2018-06-26 21:18:31
+* @Last Modified by:   chenbin
+* @Last Modified time: 2018-06-27 09:18:14
 */
 
 var art = function(data){
@@ -66,6 +66,7 @@ $(function(){
 				'c_page': '1'
 			},
 			success:function(data){
+				console.log(data)
 				art(data)
 			},
 			error:function(err){

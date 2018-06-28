@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect,reverse
 from django.http import HttpResponse,JsonResponse
 from django.shortcuts import redirect,reverse
-from cms.forms import cms_loginForm,cmsfrontAuthForm,cmsArticleQueryForm
+from cms.forms import cms_loginForm,cmsfrontAuthForm,cmsArticleQueryForm,cmsAddCategoryForm
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login,logout
@@ -104,7 +104,7 @@ def cms_author_delete(request):
 	else:
 		return bnjson.json_params_error(message=form.errors)
 
-@login_required
+# @login_required
 @require_http_methods(['POST','GET'])
 def cms_author_modify(request,uid):
 	if request.method == 'GET':
@@ -116,9 +116,9 @@ def cms_author_modify(request,uid):
 	else:
 		form = cmsfrontAuthForm(request.POST)
 		if form.is_valid():
-			print('-'*30)
-			print(type(form.cleaned_data))
-			print('-'*30)
+			# print('-'*30)
+			# print(type(form.cleaned_data))
+			# print('-'*30)
 			author = frontAuthModel.objects.filter(pk=uid).first()
 			new_psw = form.cleaned_data.get('new_psw')
 			author.password = new_psw
@@ -130,7 +130,7 @@ def cms_author_modify(request,uid):
 			return render(request,'cms_author_modify.html',context=context)
 		else:
 			error_dict = form.errors.as_data()
-			print(error_dict)
+			# print(error_dict)
 			message = ''
 			for key in error_dict.keys():
 				message = error_dict[key][0]
@@ -142,6 +142,7 @@ def cms_author_modify(request,uid):
 			'author':author,
 			'modify_fail':message
 			}
+			# print(form.errors.as_data()['new_psw'][0].messages[0])
 			return render(request,'cms_author_modify.html',context=context)
 
 @require_http_methods(['GET','POST'])
@@ -190,13 +191,51 @@ def cms_article_query(request):
 		c_page = form.cleaned_data.get('c_page')
 		#目前只能按标题查询，此处有待完善
 		articles = ArticleModel.objects.filter(Q(title__contains=title)&Q(author__username__contains=author)&Q(category__name__contains=category))
-		article_list = list(articles.values('title','author__username','category__name','release_time','read_count'))
-		print(articles)
+		article_list = list(articles.values('uid','title','author__username','category__name','release_time','read_count'))
+		# print(articles)
 		context = page(c_page,article_list,query_name='article')
 		return bnjson.json_result(message='查询成功！',data=context)
 	else:
 		return bnjson.json_params_error(message=form.errors)
 
+@login_required
+@require_http_methods(['GET','POST'])
+def cms_article_modify(request,uid):
+	if request.method == 'GET':
+		article = ArticleModel.objects.filter(pk=uid).first()
+		categorys = CategoryModel.objects.all().order_by('pk')
+		if article:
+			context = {
+				'article': article,
+				'categorys': categorys
+			}
+			return render(request,'cms_article_modify.html',context=context)
+		else:
+			return bnjson.json_params_error(message='没有这篇文章')
+
+	else:
+		pass
+
+
+# @login_required
+@require_http_methods(['POST'])
+def cms_add_category(request):
+	form = cmsAddCategoryForm(request.POST)
+	if form.is_valid():
+		name = form.cleaned_data.get('name')
+		category = CategoryModel.objects.filter(name=name).first()
+		if category:
+			return bnjson.json_params_error(message='该分类已存在')
+		else:
+			category = CategoryModel(name=name)
+			category.save()
+			data = {
+				'id': category.id,
+				'name': category.name
+			}
+			return bnjson.json_result(data=data)
+	else:
+		return bnjson.json_params_error(message=form.errors)
 
 @login_required
 def cms_test(request):
