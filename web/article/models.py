@@ -13,7 +13,8 @@ class ArticleModel(models.Model):
 	release_time = models.DateTimeField(auto_now_add=True)
 	update_time = models.DateTimeField(auto_now=True)
 	read_count = models.IntegerField(null=True)
-
+	tags = models.ManyToManyField('TagModel')
+	top = models.OneToOneField('TopModel',on_delete=models.SET_NULL,null=True)
 
 #分类模型
 class CategoryModel(models.Model):
@@ -37,3 +38,9 @@ class SupportModel(models.Model):
 	author = models.ForeignKey(frontAuthModel,on_delete=models.CASCADE)
 	article = models.ForeignKey(ArticleModel,on_delete=models.CASCADE)
 	status = models.CharField(max_length=1,choices=status)
+
+class TagModel(models.Model):
+	name = models.CharField(max_length=20,unique=True)
+
+class TopModel(models.Model):
+	top_time = models.DateTimeField(auto_now_add=True)

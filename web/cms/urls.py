@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^article/query/$', views.cms_article_query, name='cms_article_query'),
     url(r'^article/modify/(?P<uid>[\w\-]+)/$', views.cms_article_modify, name='cms_article_modify'),
     url(r'^article/add_category/$', views.cms_add_category, name='cms_add_category'),
+    url(r'^article/add_tag/$', views.cms_add_tag, name='cms_add_tag'),
     url(r'^login/$', views.cms_login, name='cms_login'),
     url(r'^logout/$', views.cms_logout, name='cms_logout'),
     url(r'^test/$', views.cms_test, name='cms_test'),

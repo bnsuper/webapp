@@ -50,7 +50,19 @@
 				<div class="form-group">
 					<div class="input-group">
 					  <span class="input-group-addon">标签</span>
-					  <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" value="" placeholder="暂无标签">
+					 	 <div class="form-control tag-div">
+					 	 	{% for tag in tags %}
+					 	 	{% if tag.id in article_tags %}
+					 	 		<label>
+								    <input type="checkbox" value="{{tag.id}}" checked>{{tag.name}}
+								</label>
+								{% else %}
+								<label>
+								    <input type="checkbox" value="{{tag.id}}">{{tag.name}}
+								</label>
+					 	 	{% endif %}
+					 	 	{% endfor %}
+						 </div>
 					  <sapn class="input-group-addon btn btn-primary add-tag-btn">添加</span>
 					</div>
 				</div>
@@ -99,7 +111,7 @@
 
 			<div class="modal-body">
 
-			<input type="text" placeholder="请输入标签名称" class="form-control">
+			<input type="text" placeholder="请输入标签名称" class="form-control tag-input">
 			</div>
 
 			<div class="modal-footer">

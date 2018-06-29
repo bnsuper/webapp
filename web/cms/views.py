@@ -1,14 +1,14 @@
 from django.shortcuts import render,redirect,reverse
 from django.http import HttpResponse,JsonResponse
 from django.shortcuts import redirect,reverse
-from cms.forms import cms_loginForm,cmsfrontAuthForm,cmsArticleQueryForm,cmsAddCategoryForm
+from cms.forms import cms_loginForm,cmsfrontAuthForm,cmsArticleQueryForm,cmsAddCategoryForm,cmsAddTagForm
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.sessions.models import Session
 from django.forms.models import model_to_dict
 from frontauth.models import frontAuthModel,authReationModel
-from article.models import ArticleModel,CommentModel,CategoryModel,SupportModel
+from article.models import ArticleModel,CommentModel,CategoryModel,SupportModel,TagModel
 from django.conf import settings
 from random import randint
 from cms.utils import makeAuthors
@@ -204,11 +204,15 @@ def cms_article_modify(request,uid):
 	if request.method == 'GET':
 		article = ArticleModel.objects.filter(pk=uid).first()
 		categorys = CategoryModel.objects.all().order_by('pk')
+		tags = TagModel.objects.all().order_by('pk')
 		if article:
 			context = {
 				'article': article,
-				'categorys': categorys
+				'categorys': categorys,
+				'tags': tags,
+				'article_tags': list(article.tags.values_list('id',flat=True))
 			}
+
 			return render(request,'cms_article_modify.html',context=context)
 		else:
 			return bnjson.json_params_error(message='没有这篇文章')
@@ -217,7 +221,7 @@ def cms_article_modify(request,uid):
 		pass
 
 
-# @login_required
+@login_required
 @require_http_methods(['POST'])
 def cms_add_category(request):
 	form = cmsAddCategoryForm(request.POST)
@@ -237,6 +241,26 @@ def cms_add_category(request):
 	else:
 		return bnjson.json_params_error(message=form.errors)
 
+# @login_required
+@require_http_methods(['POST'])
+def cms_add_tag(request):
+	form = cmsAddTagForm(request.POST)
+	if form.is_valid():
+		name = form.cleaned_data.get('name')
+		tag = TagModel.objects.filter(name=name).first()
+		if tag:
+			return bnjson.json_params_error(message='该标签已存在')
+		else:
+			tag = TagModel(name=name)
+			tag.save()
+			data = {
+				'id': tag.id,
+				'name': tag.name
+			}
+			return bnjson.json_result(data=data)
+	else:
+		return bnjson.json_params_error(message=form.errors)
+
 @login_required
 def cms_test(request):
 	# author_list = makeAuthors(1)
@@ -250,17 +274,17 @@ def cms_test(request):
 	# category = CategoryModel(name='历史')
 	# category.save()
 
-	author = frontAuthModel.objects.filter(username='汪峰').first()
-	category = CategoryModel.objects.filter(name='电影').first()
-	kwards = {
-		'title':'感谢身边的懒人',
-		'content_html':'童话里都是骗人的！',
-		'author':author,
-		'category':category,
-		'read_count':80
-	}
-	articel = ArticleModel(**kwards)
-	articel.save()
+	# author = frontAuthModel.objects.filter(username='汪峰').first()
+	# category = CategoryModel.objects.filter(name='电影').first()
+	# kwards = {
+	# 	'title':'感谢身边的懒人',
+	# 	'content_html':'童话里都是骗人的！',
+	# 	'author':author,
+	# 	'category':category,
+	# 	'read_count':80
+	# }
+	# articel = ArticleModel(**kwards)
+	# articel.save()
 
 	# article = ArticleModel.objects.filter(title='标题').first()
 	# article.author = author
@@ -274,4 +298,8 @@ def cms_test(request):
 	# articles = ArticleModel.objects.select_related('author__username')
 	# print(type(articles))
 	# print(articles.values())
+
+	tag = TagModel.objects.filter(name='文艺范').first()
+	article = ArticleModel.objects.filter(title='放弃也是一种快乐').first()
+	article.tags.add(tag)
 	return HttpResponse('这里是测试页面')

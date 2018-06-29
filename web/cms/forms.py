@@ -2,7 +2,7 @@
 # @Author: bn
 # @Date:   2018-05-28 22:57:07
 # @Last Modified by:   chenbin
-# @Last Modified time: 2018-06-28 15:53:45
+# @Last Modified time: 2018-06-29 16:20:19
 from django import forms
 
 class cms_loginForm(forms.Form):
@@ -28,3 +28,6 @@ class cmsArticleQueryForm(forms.Form):
 
 class cmsAddCategoryForm(forms.Form):
 	name = forms.CharField(max_length=20)
+
+class cmsAddTagForm(forms.Form):
+	name = forms.CharField(max_length=20,error_messages={'required':'请输入标签信息'})
