@@ -102,7 +102,7 @@ def cms_author_delete(request):
 		else:
 			return bnjson.json_params_error(message='没有该用户！')
 	else:
-		return bnjson.json_params_error(message=form.errors)
+		return form.error_json_resopnse()
 
 # @login_required
 @require_http_methods(['POST','GET'])
@@ -196,7 +196,7 @@ def cms_article_query(request):
 		context = page(c_page,article_list,query_name='article')
 		return bnjson.json_result(message='查询成功！',data=context)
 	else:
-		return bnjson.json_params_error(message=form.errors)
+		return form.error_json_resopnse()
 
 @login_required
 @require_http_methods(['GET','POST'])
@@ -239,7 +239,7 @@ def cms_add_category(request):
 			}
 			return bnjson.json_result(data=data)
 	else:
-		return bnjson.json_params_error(message=form.errors)
+		return form.error_json_resopnse()
 
 # @login_required
 @require_http_methods(['POST'])
@@ -259,7 +259,7 @@ def cms_add_tag(request):
 			}
 			return bnjson.json_result(data=data)
 	else:
-		return bnjson.json_params_error(message=form.errors)
+		return form.error_json_resopnse()
 
 @login_required
 def cms_test(request):

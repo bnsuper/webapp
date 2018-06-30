@@ -2,7 +2,7 @@
 * @Author: chenbin
 * @Date:   2018-06-28 09:49:46
 * @Last Modified by:   chenbin
-* @Last Modified time: 2018-06-29 15:45:24
+* @Last Modified time: 2018-06-30 09:26:24
 */
 
 // 初始化simditor编辑器
@@ -84,12 +84,6 @@ $(function(){
 			}
 			else{
 				var message = data.message
-				if (typeof message == 'object'){
-					for(var key in message){
-						message = message[key][0]
-						break
-					}
-				}
 				alert(message)
 			}
 		},
