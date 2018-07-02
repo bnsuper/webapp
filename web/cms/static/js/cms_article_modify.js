@@ -2,12 +2,12 @@
 * @Author: chenbin
 * @Date:   2018-06-28 09:49:46
 * @Last Modified by:   chenbin
-* @Last Modified time: 2018-06-30 09:26:24
+* @Last Modified time: 2018-07-02 15:10:05
 */
 
 // 初始化simditor编辑器
 $(function(){
-	var editor = new Simditor({
+	  editor = new Simditor({
 	  textarea: $('#editor')
 	});
 })
@@ -94,3 +94,59 @@ $(function(){
 })
 
 })
+
+// 文章修改
+$(function(){
+
+	$('.article-submit').click(function(){
+		var dialog = $('#modify-article-modal')
+		var url = window.location.href
+		var title = $("[name='title']").val()
+		var category_id = $('.category-select :selected').val()
+		var content = $('#editor').val()
+		var tags = $('.tag-div :checked')
+		var tagIds = []
+		$('.tag-div :checked').each(function(){
+			var tagId = $(this).val()
+			tagIds.push(tagId)
+		})
+		var data = {
+			title: title,
+			category_id: category_id,
+			content: content,
+			tagIds: tagIds
+		}
+		console.log(data)
+		bnajax.post({
+			url: url,
+			data: data,	
+			traditional: true,
+			success: function(data){
+				if(data.code == 200){
+					$('input').attr('value','')
+					tags.attr('checked',false)
+					dialog.modal('show')
+					editor.setValue('')
+				}
+				else{
+					var message = data.message
+					alert(message)
+				}
+			},
+			error: function(err){
+				alert(err)
+			}
+		})
+	})
+
+	$('.edit-again-btn').click(function(){
+		var url = window.location.href
+		window.location.href = url
+	})
+	
+	$('.return-heigh').click(function(){
+		var url = '/cms/article/'
+		window.location.href = url
+	})
+})
+

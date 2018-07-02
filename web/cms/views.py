@@ -13,7 +13,7 @@ from django.conf import settings
 from random import randint
 from cms.utils import makeAuthors
 from django.db.models import Count
-from cms.forms import cmsDeleteAuthorForm
+from cms.forms import cmsDeleteAuthorForm,cmsArticleModifyForm
 from utils import bnjson
 from django.utils import timezone
 from django.db.models import Q
@@ -198,7 +198,7 @@ def cms_article_query(request):
 	else:
 		return form.error_json_resopnse()
 
-@login_required
+# @login_required
 @require_http_methods(['GET','POST'])
 def cms_article_modify(request,uid):
 	if request.method == 'GET':
@@ -218,7 +218,29 @@ def cms_article_modify(request,uid):
 			return bnjson.json_params_error(message='没有这篇文章')
 
 	else:
-		pass
+		form = cmsArticleModifyForm(request.POST)
+		if form.is_valid():
+			title = form.cleaned_data.get('title')
+			category_id = form.cleaned_data.get('category_id')
+			category = CategoryModel.objects.filter(id=category_id).first()
+			content = form.cleaned_data.get('content')
+			article = ArticleModel.objects.filter(pk=uid).first()
+			article.title = title
+			article.category = category
+			article.content_html = content
+			article.save(update_fields=['title','category','content_html'])
+			tagIds = request.POST.getlist('tagIds')
+			tags = []
+			if tagIds:
+				for tag_id in tagIds:
+					tag = TagModel.objects.filter(pk=tag_id).first()
+					if tag:
+						tags.append(tag)
+				print(tags)
+				article.tags.set(tags)
+			return bnjson.json_result(message='修改成功')
+		else:
+			return form.error_json_resopnse()
 
 
 @login_required

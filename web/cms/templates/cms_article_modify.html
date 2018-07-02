@@ -19,8 +19,8 @@
 				<div class="form-group">
 					<div class="input-group">
 					  <span class="input-group-addon">标题</span>
-					  <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" value="{{article.title}}" readonly="">
-					  <sapn class="input-group-addon btn btn-danger">提交</span>
+					  <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" value="{{article.title}}" name="title">
+					  <sapn class="input-group-addon btn btn-danger article-submit">提交</span>
 					</div>
 				</div>
 
@@ -117,6 +117,29 @@
 			<div class="modal-footer">
 			<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 			<button type="button" class="btn btn-primary tag-submit">保存</button>
+			</div>
+
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="modify-article-modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+
+			<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title">添加标签</h4>
+			</div>
+
+			<div class="modal-body">
+
+			<p>恭喜您，文章修改成功啦！</p>
+			</div>
+
+			<div class="modal-footer">
+			<button type="button" class="btn btn-default return-heigh">返回上级</button>
+			<button type="button" class="btn btn-primary edit-again-btn">再次编辑</button>
 			</div>
 
 		</div><!-- /.modal-content -->

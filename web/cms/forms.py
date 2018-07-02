@@ -2,7 +2,7 @@
 # @Author: bn
 # @Date:   2018-05-28 22:57:07
 # @Last Modified by:   chenbin
-# @Last Modified time: 2018-06-30 12:18:21
+# @Last Modified time: 2018-07-02 08:45:41
 from django import forms
 from common.forms import BaseForm
 
@@ -33,6 +33,8 @@ class cmsAddCategoryForm(BaseForm):
 class cmsAddTagForm(BaseForm):
 	name = forms.CharField(max_length=20,error_messages={'required':'请输入标签信息'})
 
-class cmsModefyArticleForm(BaseForm):
-	category = forms.IntegerField(min_value=1)
+class cmsArticleModifyForm(BaseForm):
+	title = forms.CharField(max_length=100)
+	category_id = forms.IntegerField(min_value=1)
+	content = forms.CharField()
 
