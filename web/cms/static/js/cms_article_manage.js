@@ -2,7 +2,7 @@
 * @Author: chenbin
 * @Date:   2018-06-11 11:58:59
 * @Last Modified by:   bn
-* @Last Modified time: 2018-07-06 00:01:44
+* @Last Modified time: 2018-07-06 00:42:35
 */
 
 var art = function(data){
@@ -83,8 +83,6 @@ $(function(){
 })
 
 
-
-
 $(function(){
 	// console.log('------------------')
 	// console.log($('.pagination'));
@@ -130,9 +128,31 @@ $(function(){
 					uid: uid
 				},
 				success:function(data){
-					console.log(data.message)
-					var url = window.location.href 
-					window.location.href = url
+					alert(data.message)
+					var c_page = $('.pagination .active').text()
+					var title = $("input[name='title']").val()
+					var author = $("input[name='author']").val()
+					var category = $("input[name='category']").val()
+					console.log(c_page)
+					bnajax.post({
+							url:'/cms/article/query/',
+							data:{
+								'title':title,
+								'author':author,
+								'category':category,
+								'c_page': c_page
+							},
+							success:function(data){
+								art(data)
+							},
+							error:function(err){
+								alert(err)
+							},
+							complete:function(){
+								console.log('ajax is completed')
+							}
+						})
+
 				},
 				error:function(err){
 					alert(err)
@@ -157,9 +177,30 @@ $(function(){
 					uid: uid
 				},
 				success:function(data){
-					console.log(data.message)
-					var url = window.location.href 
-					window.location.href = url
+					alert(data.message)
+					var c_page = $('.pagination .active').text()
+					var title = $("input[name='title']").val()
+					var author = $("input[name='author']").val()
+					var category = $("input[name='category']").val()
+					console.log(c_page)
+					bnajax.post({
+							url:'/cms/article/query/',
+							data:{
+								'title':title,
+								'author':author,
+								'category':category,
+								'c_page': c_page
+							},
+							success:function(data){
+								art(data)
+							},
+							error:function(err){
+								alert(err)
+							},
+							complete:function(){
+								console.log('ajax is completed')
+							}
+						})
 				},
 				error:function(err){
 					alert(err)
