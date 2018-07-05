@@ -43,4 +43,4 @@ class TagModel(models.Model):
 	name = models.CharField(max_length=20,unique=True)
 
 class TopModel(models.Model):
-	top_time = models.DateTimeField(auto_now_add=True)
+	top_time = models.DateTimeField(auto_now=True)

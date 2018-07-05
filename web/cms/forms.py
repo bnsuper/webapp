@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: bn
 # @Date:   2018-05-28 22:57:07
-# @Last Modified by:   chenbin
-# @Last Modified time: 2018-07-02 08:45:41
+# @Last Modified by:   bn
+# @Last Modified time: 2018-07-05 22:26:17
 from django import forms
 from common.forms import BaseForm
 
@@ -38,3 +38,5 @@ class cmsArticleModifyForm(BaseForm):
 	category_id = forms.IntegerField(min_value=1)
 	content = forms.CharField()
 
+class cmsTopArticleForm(BaseForm):
+	uid = forms.UUIDField(required=True)

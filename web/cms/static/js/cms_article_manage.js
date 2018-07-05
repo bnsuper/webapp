@@ -1,8 +1,8 @@
 /*
 * @Author: chenbin
 * @Date:   2018-06-11 11:58:59
-* @Last Modified by:   chenbin
-* @Last Modified time: 2018-06-27 09:18:14
+* @Last Modified by:   bn
+* @Last Modified time: 2018-07-06 00:01:44
 */
 
 var art = function(data){
@@ -117,3 +117,56 @@ $(function(){
 
 
 	
+$(function(){
+	// console.log('------------------')
+	// console.log($('.pagination'));
+	$('.article-tbody').on("click",".top-btn",function(event){  
+		    event.preventDefault();
+			var uid = $(this).parent().parent().attr('uid')
+			console.log(uid)
+			bnajax.post({
+				url:'/cms/article/top/',
+				data:{
+					uid: uid
+				},
+				success:function(data){
+					console.log(data.message)
+					var url = window.location.href 
+					window.location.href = url
+				},
+				error:function(err){
+					alert(err)
+				},
+				complete:function(){
+					console.log('top is completed')
+				}
+			})
+		});  
+})
+
+$(function(){
+	// console.log('------------------')
+	// console.log($('.pagination'));
+	$('.article-tbody').on("click",".untop-btn",function(event){  
+		    event.preventDefault();
+			var uid = $(this).parent().parent().attr('uid')
+			console.log(uid)
+			bnajax.post({
+				url:'/cms/article/untop/',
+				data:{
+					uid: uid
+				},
+				success:function(data){
+					console.log(data.message)
+					var url = window.location.href 
+					window.location.href = url
+				},
+				error:function(err){
+					alert(err)
+				},
+				complete:function(){
+					console.log('untop is completed')
+				}
+			})
+		});  
+})

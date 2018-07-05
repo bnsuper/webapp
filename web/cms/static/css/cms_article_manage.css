@@ -1,15 +1,15 @@
 /*
 * @Author: chenbin
 * @Date:   2018-06-11 11:58:45
-* @Last Modified by:   chenbin
-* @Last Modified time: 2018-06-25 09:43:11
+* @Last Modified by:   bn
+* @Last Modified time: 2018-07-05 22:56:37
 */
 /*.table th:nth-of-type(0){
 	width: 25%;
 }
 */
 .table th:nth-of-type(1){
-	width: 20%;
+	width: 25%;
 }
 
 
