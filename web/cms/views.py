@@ -16,7 +16,8 @@ from django.db.models import Count
 from cms.forms import cmsDeleteAuthorForm,cmsArticleModifyForm
 from utils import bnjson
 from django.utils import timezone
-from django.db.models import Q
+from django.db.models import Q,F
+from django.db import connection
 # Create your views here.
 
 #current_page指当前页，query_result指queryset的查询结果,query_name指的是切片的key名称
@@ -190,9 +191,9 @@ def cms_article_query(request):
 		category = form.cleaned_data.get('category')
 		c_page = form.cleaned_data.get('c_page')
 		#目前只能按标题查询，此处有待完善
-		articles = ArticleModel.objects.filter(Q(title__contains=title)&Q(author__username__contains=author)&Q(category__name__contains=category))
-		article_list = list(articles.values('uid','title','author__username','category__name','release_time','read_count'))
-		# print(articles)
+		articles = ArticleModel.objects.filter(Q(title__contains=title)&Q(author__username__contains=author)&Q(category__name__contains=category)).order_by('top__top_time','-release_time')
+		article_list = list(articles.annotate(author_name=F('author__username'),category_name=F('category__name')).values('uid','title','author_name','category_name','release_time','read_count'))
+		# print(article_list)
 		context = page(c_page,article_list,query_name='article')
 		return bnjson.json_result(message='查询成功！',data=context)
 	else:
@@ -299,11 +300,11 @@ def cms_test(request):
 	# author = frontAuthModel.objects.filter(username='汪峰').first()
 	# category = CategoryModel.objects.filter(name='电影').first()
 	# kwards = {
-	# 	'title':'感谢身边的懒人',
+	# 	'title':'真的很皮',
 	# 	'content_html':'童话里都是骗人的！',
 	# 	'author':author,
 	# 	'category':category,
-	# 	'read_count':80
+	# 	'read_count': None
 	# }
 	# articel = ArticleModel(**kwards)
 	# articel.save()
@@ -321,7 +322,18 @@ def cms_test(request):
 	# print(type(articles))
 	# print(articles.values())
 
-	tag = TagModel.objects.filter(name='文艺范').first()
-	article = ArticleModel.objects.filter(title='放弃也是一种快乐').first()
-	article.tags.add(tag)
+	# tag = TagModel.objects.filter(name='文艺范').first()
+	# # article = ArticleModel.objects.filter(title='放弃也是一种快乐').first()
+	# article = ArticleModel.objects.values('title','author__username','uid').annotate(count=Count('pk'))
+	# print(article)
+	# print(article.query)
+	# category = CategoryModel.objects.annotate(article_count=Count('articlemodel')).values('name')
+	# print('-'*50)
+	# print(category)
+	# print(category.query)
+	print('-'*50)
+	test = CategoryModel.objects.aggregate(Count('articlemodel'))
+	print(test)
+	print('-'*50)
+	print(connection.queries)
 	return HttpResponse('这里是测试页面')
