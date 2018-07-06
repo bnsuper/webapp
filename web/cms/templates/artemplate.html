@@ -27,11 +27,16 @@
 </script>
 
 
+
 <script id="article" type="text/html">
 	{% verbatim %}
 		{{each articles article i}}
-		<tr>
-		  <td>{{article.title}}</th>
+		<tr uid="{{article.uid}}">
+		{{if article.top}}
+		<td><span style="color:red;">[置顶]</span>{{article.title}}</th>
+		{{else}}
+		<td>{{article.title}}</th>
+		{{/if}}
 		  <td>{{article.author_name}}</td>
 		  <td>{{article.category_name}}</td>
 		  <td>{{article.release_time | dateFormat:'yyyy-MM-dd hh:mm'}}</td>
@@ -39,8 +44,13 @@
 		  <td>0</td>
 		  <td class="modify-td">
 			<a href="/cms/article/modify/{{article.uid}}">修改</a><span>&nbsp&nbsp|&nbsp&nbsp</span>
-			<a href="" class="">删除</a><span>&nbsp&nbsp|&nbsp&nbsp</span>
-			<a href="">置顶</a>
+			<a href="" class="article-delete-btn">删除</a><span>&nbsp&nbsp|&nbsp&nbsp</span>
+			{{if article.top}}
+			【<span class="top-btn"><a href="">置顶</a></span> &nbsp|&nbsp <span class="untop-btn"><a href="#">取消置顶</a></span>】
+			{{else}}
+			<span class="top-btn"><a href="">置顶</a></span>
+			{{/if}}
+			
 		  </td>
 		 </tr>
 		{{/each}}

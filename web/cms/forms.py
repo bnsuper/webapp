@@ -2,7 +2,7 @@
 # @Author: bn
 # @Date:   2018-05-28 22:57:07
 # @Last Modified by:   chenbin
-# @Last Modified time: 2018-07-02 08:45:41
+# @Last Modified time: 2018-07-06 09:44:00
 from django import forms
 from common.forms import BaseForm
 
@@ -38,3 +38,9 @@ class cmsArticleModifyForm(BaseForm):
 	category_id = forms.IntegerField(min_value=1)
 	content = forms.CharField()
 
+class cmsTopArticleForm(BaseForm):
+	uid = forms.UUIDField(required=True)
+
+#删除文章表单验证
+class cmsDeleteArticleForm(cmsTopArticleForm):
+	pass

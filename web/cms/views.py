@@ -1,14 +1,14 @@
 from django.shortcuts import render,redirect,reverse
 from django.http import HttpResponse,JsonResponse
 from django.shortcuts import redirect,reverse
-from cms.forms import cms_loginForm,cmsfrontAuthForm,cmsArticleQueryForm,cmsAddCategoryForm,cmsAddTagForm
+from cms.forms import cms_loginForm,cmsfrontAuthForm,cmsArticleQueryForm,cmsAddCategoryForm,cmsAddTagForm,cmsTopArticleForm,cmsDeleteArticleForm
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.sessions.models import Session
 from django.forms.models import model_to_dict
 from frontauth.models import frontAuthModel,authReationModel
-from article.models import ArticleModel,CommentModel,CategoryModel,SupportModel,TagModel
+from article.models import ArticleModel,CommentModel,CategoryModel,SupportModel,TagModel,TopModel
 from django.conf import settings
 from random import randint
 from cms.utils import makeAuthors
@@ -18,6 +18,7 @@ from utils import bnjson
 from django.utils import timezone
 from django.db.models import Q,F
 from django.db import connection
+
 # Create your views here.
 
 #current_page指当前页，query_result指queryset的查询结果,query_name指的是切片的key名称
@@ -182,6 +183,7 @@ def cms_logout(request):
 def cms_article_manager(request):
 	return render(request,'cms_article_manage.html')
 
+@login_required
 @require_http_methods(['POST'])
 def cms_article_query(request):
 	form = cmsArticleQueryForm(request.POST)
@@ -191,9 +193,13 @@ def cms_article_query(request):
 		category = form.cleaned_data.get('category')
 		c_page = form.cleaned_data.get('c_page')
 		#目前只能按标题查询，此处有待完善
-		articles = ArticleModel.objects.filter(Q(title__contains=title)&Q(author__username__contains=author)&Q(category__name__contains=category)).order_by('top__top_time','-release_time')
-		article_list = list(articles.annotate(author_name=F('author__username'),category_name=F('category__name')).values('uid','title','author_name','category_name','release_time','read_count'))
-		# print(article_list)
+		articles = ArticleModel.objects.filter(Q(title__contains=title)&Q(author__username__contains=author)&Q(category__name__contains=category))
+		article_list = list(articles.annotate(author_name=F('author__username'),category_name=F('category__name')).values('uid','title','author_name','category_name','release_time','read_count','top').order_by('-top__top_time','-release_time'))
+		for article in article_list:
+			if article['top']:
+				article['top']=True
+			else:
+				article['top']=False
 		context = page(c_page,article_list,query_name='article')
 		return bnjson.json_result(message='查询成功！',data=context)
 	else:
@@ -242,6 +248,62 @@ def cms_article_modify(request,uid):
 			return bnjson.json_result(message='修改成功')
 		else:
 			return form.error_json_resopnse()
+
+@login_required
+@require_http_methods(['POST'])
+def cms_article_delete(request):
+	form = cmsDeleteArticleForm(request.POST)
+	if form.is_valid():
+		uid = form.cleaned_data.get('uid')
+		article = ArticleModel.objects.filter(pk=uid).first()
+		if article:
+			data = model_to_dict(article,fields=['title','author__username'])
+			article.delete()
+			return bnjson.json_result(message='文章已删除',data=data)
+		else:
+			return bnjson.json_params_error(message='没有这篇文章，无法删除')
+	else:
+		return form.error_json_resopnse()
+
+# @login_required
+@require_http_methods(['POST'])
+def cms_article_top(request):
+	form = cmsTopArticleForm(request.POST)
+	if form.is_valid():
+		uid = form.cleaned_data.get('uid')
+		article = ArticleModel.objects.filter(pk=uid).first()
+		if article:
+			if article.top:
+				article.top.save()
+				# article.save(update_fields=['top'])
+				return bnjson.json_result(message='已再次置顶')
+			else:
+				top = TopModel()
+				top.save()
+				article.top = top
+				article.save(update_fields=['top'])
+				return bnjson.json_result(message='已置顶')
+		else:
+			return bnjson.json_params_error(message='没有这篇文章，无法置顶')
+	else:
+		return form.error_json_resopnse()
+
+@require_http_methods(['POST'])
+def cms_article_untop(request):
+	form = cmsTopArticleForm(request.POST)
+	if form.is_valid():
+		uid = form.cleaned_data.get('uid')
+		article = ArticleModel.objects.filter(pk=uid).first()
+		if article:
+			if article.top:
+				article.top.delete()
+				return bnjson.json_result(message='已取消置顶')
+			else:
+				bnjson.json_params_error(message='这篇文章未置顶，无法进行置顶操作')
+		else:
+			return bnjson.json_params_error(message='没有这篇文章，无法置顶')
+	else:
+		return form.error_json_resopnse()
 
 
 @login_required
@@ -336,4 +398,14 @@ def cms_test(request):
 	print(test)
 	print('-'*50)
 	print(connection.queries)
+
+	# article = ArticleModel.objects.filter(title='大学').first()
+	# # article.tags.add(tag)
+	# top = TopModel()
+	# top.save()
+	# article.top = top
+	# article.save(update_fields=['top'])
+
+	top = TopModel.objects.filter(pk=2).first()
+	top.save()
 	return HttpResponse('这里是测试页面')

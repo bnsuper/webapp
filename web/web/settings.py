@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'mytest',
     'frontauth',
     'article',
-    'common'
+    'common',
+    'front'
 ]
 
 MIDDLEWARE = [

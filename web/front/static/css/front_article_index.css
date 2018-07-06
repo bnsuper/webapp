@@ -1,0 +1,28 @@
+/*
+* @Author: chenbin
+* @Date:   2018-07-06 16:59:08
+* @Last Modified by:   chenbin
+* @Last Modified time: 2018-07-06 18:20:37
+*/
+.search-form{
+	margin-left: 60px;
+}
+
+.logo{
+	float: left;
+	height: 100%;
+	padding: 0;
+	margin-left: 80px;
+}
+
+.navbar-brand{
+	padding: 0;
+}
+
+.ul-nav{
+	margin-left: 160px;
+}
+
+.ul-nav li{
+	margin-left: 20px;
+}
