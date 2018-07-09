@@ -1,0 +1,89 @@
+/*
+* @Author: chenbin
+* @Date:   2018-07-09 10:18:25
+* @Last Modified by:   chenbin
+* @Last Modified time: 2018-07-09 10:28:36
+*/
+a:hover{
+	text-decoration: none;
+	color:black;
+}
+
+a{
+	color: black;
+}
+
+a:focus{
+	text-decoration: none
+}
+
+.search-form{
+	margin-left: 60px;
+}
+
+.logo{
+	float: left;
+	height: 100%;
+	padding: 0;
+	margin-left: 80px;
+}
+
+.navbar-brand{
+	padding: 0;
+}
+
+.ul-nav{
+	margin-left: 120px;
+}
+
+.ul-nav li{
+	margin-left: 20px;
+}
+
+.ul-nav-right{
+	margin-right: 60px;
+}
+
+.ul-nav-right li{
+	/*background: yellow;*/
+	margin-left: 20px;
+}
+
+.write-btn{
+	border-radius:20px;
+	text-align: center;
+	margin-top: 4px;
+	background: #ea6f5a;
+}
+
+.singin-btn{
+	border-radius:20px;
+	text-align: center;
+	margin-top: 4px;
+	background: white;
+}
+
+.navbar-default .navbar-nav>li .write-btn:focus, .navbar-default .navbar-nav>li .write-btn:hover {
+    color:#fff;
+	background-color:#ec6149;
+}
+
+
+
+.navbar-default .navbar-nav>li .write-btn{
+     color: white; 
+     padding-bottom: 10px;
+     padding-top: 10px;
+}
+
+.navbar-default .navbar-nav>li .singin-btn{
+	 color: #ec6149;
+     padding-bottom: 10px;
+     padding-top: 10px;
+}
+
+.navbar-default .navbar-nav>li .singin-btn:focus, .navbar-default .navbar-nav>li .singin-btn:hover {
+   color:#ec6149;
+   border-color:#ec6149;
+   background-color:rgba(236,97,73,.05)
+}

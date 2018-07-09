@@ -1,47 +1,17 @@
-{% extends "bootstrap.html" %}
+{% extends "front_article_base.html" %}
 {% load static %}
 
 {% block titleblock %}
 	简书_首页
 {% endblock titleblock %}
 
-{% block headblock %}
-	<link href="{% static "css/front_article_index.css" %}" rel="stylesheet">
-	<script src=""></script>
-{% endblock headblock %}
+{% block content_headblock %}
+  {% include "front_artemplate.html" %}
+  <link href="{% static "css/front_article_index.css" %}" rel="stylesheet">
+  <script src="{% static "js/front_article_index.js" %}"></script>
+{% endblock content_headblock %}
 
-{% block bodyblock %}
-<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#"><img src="{% static "image/jianshu.jpg" %}" class="logo" alt="" ></a>
-    </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav ul-nav">
-        <li class="active"><a href="#">首页<span class="sr-only">(current)</span></a></li>
-        <li><a href="#">下载app</a></li>
-      </ul>
-
-      <form class="navbar-form navbar-left search-form">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="查找">
-        </div>
-        <button type="submit" class="btn btn-default">提交</button>
-      </form>
-
-      <ul class="nav navbar-nav navbar-right ul-nav-right">
-        <li><a href="#">A</a></li>
-        <li><a href="">登录</a></li>
-        <li><a href="" class="btn btn-danger singin-btn">注册</a></li>
-        <li><a href="" class="btn btn-danger write-btn">写文章</a></li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
-
+{% block contentblock %}
 <div class="container-fluid main-box">
   <div class="row">
           <div class="col-md-5 banner">
@@ -89,33 +59,15 @@
                 </div>
 
                   <div class="recommend-collection">
+                    {% for category in categorys %}
+                       <a class="collection" href="https://www.jianshu.com/c/fcd7a62be697?utm_medium=index-collections&utm_source=desktop">
+                        <img src="https://upload.jianshu.io/collections/images/95/1.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/64/h/64">
+                        <div class="name">{{category.name}}</div>
+                      </a>
+                    {% endfor %}
                     <a class="collection" href="https://www.jianshu.com/c/fcd7a62be697?utm_medium=index-collections&utm_source=desktop">
                       <img src="https://upload.jianshu.io/collections/images/95/1.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/64/h/64">
-                      <div class="name">分类1</div>
-                    </a>
-                    <a class="collection" href="https://www.jianshu.com/c/fcd7a62be697?utm_medium=index-collections&utm_source=desktop">
-                      <img src="https://upload.jianshu.io/collections/images/95/1.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/64/h/64">
-                      <div class="name">分类1</div>
-                    </a>
-                    <a class="collection" href="https://www.jianshu.com/c/fcd7a62be697?utm_medium=index-collections&utm_source=desktop">
-                      <img src="https://upload.jianshu.io/collections/images/95/1.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/64/h/64">
-                      <div class="name">分类1</div>
-                    </a>
-                    <a class="collection" href="https://www.jianshu.com/c/fcd7a62be697?utm_medium=index-collections&utm_source=desktop">
-                      <img src="https://upload.jianshu.io/collections/images/95/1.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/64/h/64">
-                      <div class="name">分类1</div>
-                    </a>
-                    <a class="collection" href="https://www.jianshu.com/c/fcd7a62be697?utm_medium=index-collections&utm_source=desktop">
-                      <img src="https://upload.jianshu.io/collections/images/95/1.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/64/h/64">
-                      <div class="name">分类1</div>
-                    </a>
-                    <a class="collection" href="https://www.jianshu.com/c/fcd7a62be697?utm_medium=index-collections&utm_source=desktop">
-                      <img src="https://upload.jianshu.io/collections/images/95/1.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/64/h/64">
-                      <div class="name">分类1</div>
-                    </a>
-                    <a class="collection" href="https://www.jianshu.com/c/fcd7a62be697?utm_medium=index-collections&utm_source=desktop">
-                      <img src="https://upload.jianshu.io/collections/images/95/1.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/64/h/64">
-                      <div class="name">分类1</div>
+                      <div class="name">查看更多</div>
                     </a>
                   </div>
 
@@ -135,7 +87,6 @@
                       </li>
 
                       <li class="have-img">
-                        <a class="wrap-img" href="/p/8cdef17ce106" target="_blank"><img src="https://upload-images.jianshu.io/upload_images/7158310-ea3e2d12241eeeb1.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/300/h/240"></a>
                         <div class="content">
                           <a href="https://www.jianshu.com/p/828e9f04f77c" class="title">七绝/醉美人</a>
                           <p>卷卷青丝挽鬓夹 薄唇闭锁点朱砂 垂眉锁目幽思远 浅笑轻瞥染曙霞 （仄起首入，新韵一麻）</p>
@@ -147,33 +98,37 @@
                         </div>
                       </li>
 
+                    <!-- 置顶文章 -->
+                    {% for top_article in top_articles %}
                       <li class="have-img">
-                        <a class="wrap-img" href="/p/8cdef17ce106" target="_blank"><img src="https://upload-images.jianshu.io/upload_images/7158310-ea3e2d12241eeeb1.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/300/h/240"></a>
                         <div class="content">
-                          <a href="https://www.jianshu.com/p/828e9f04f77c" class="title">七绝/醉美人</a>
-                          <p>卷卷青丝挽鬓夹 薄唇闭锁点朱砂 垂眉锁目幽思远 浅笑轻瞥染曙霞 （仄起首入，新韵一麻）</p>
+                          <a href="https://www.jianshu.com/p/828e9f04f77c" class="title">{{top_article.title}}<span style="color:red;">[推荐]</span></a>
+                          <p>{{top_article.content_html|truncatechars_html:70|striptags}}</p>
                           <div class="meta">
-                            <a class="nickname" target="_blank" href="/u/c1b86d84bdf4">梦浮荏</a>&nbsp&nbsp
+                            <a class="nickname" target="_blank" href="/u/c1b86d84bdf4">{{top_article.author.username}}</a>&nbsp&nbsp
                             <a target="_blank" href="/p/8cdef17ce106#comments"><span class="glyphicon glyphicon-comment"></span>&nbsp10</a>&nbsp&nbsp
-                            <span class="glyphicon glyphicon-heart"></span>&nbsp45
+                            <span class="glyphicon glyphicon-heart"></span>&nbsp10
                           </div>
                         </div>
                       </li>
-
+                    {% endfor %}
+                    
+                    <!-- 非置顶文章 -->
+                    {% for untop_article in untop_articles %}
                       <li class="have-img">
-                        <a class="wrap-img" href="/p/8cdef17ce106" target="_blank"><img src="https://upload-images.jianshu.io/upload_images/7158310-ea3e2d12241eeeb1.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/300/h/240"></a>
                         <div class="content">
-                          <a href="https://www.jianshu.com/p/828e9f04f77c" class="title">七绝/醉美人</a>
-                          <p>卷卷青丝挽鬓夹 薄唇闭锁点朱砂 垂眉锁目幽思远 浅笑轻瞥染曙霞 （仄起首入，新韵一麻）</p>
+                          <a href="https://www.jianshu.com/p/828e9f04f77c" class="title">{{untop_article.title}}</a>
+                          <p>{{untop_article.content_html|truncatechars_html:70|striptags}}</p>
                           <div class="meta">
-                            <a class="nickname" target="_blank" href="/u/c1b86d84bdf4">梦浮荏</a>&nbsp&nbsp
-                            <a target="_blank" href="/p/8cdef17ce106#comments"><span class="glyphicon glyphicon-comment"></span>&nbsp10</a>&nbsp&nbsp
-                            <span class="glyphicon glyphicon-heart"></span>&nbsp45
+                            <a class="nickname" target="_blank" href="/u/c1b86d84bdf4">{{untop_article.author.username}}</a>&nbsp&nbsp
+                            <a target="_blank" href="/p/8cdef17ce106#comments"><span class="glyphicon glyphicon-comment"></span>&nbsp0</a>&nbsp&nbsp
+                            <span class="glyphicon glyphicon-heart"></span>&nbsp0
                           </div>
                         </div>
                       </li>
+                    {% endfor %}
                     </ul>
-                    <button class="btn btn-primary form-control">阅读更多</button>
+                    <button type="button" data-loading-text="加载中..." class="btn btn-primary" id="read-more" current-page="2" autocomplete="off">阅读更多</button>
                   </div>
                   <p>&nbsp</p>
                   <p>&nbsp</p>
@@ -195,7 +150,8 @@
   </div><!-- row -->
 
 </div><!-- container -->
+{% endblock contentblock %}
 
 
 
-{% endblock bodyblock %}
+

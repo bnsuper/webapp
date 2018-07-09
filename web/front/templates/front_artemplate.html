@@ -1,0 +1,19 @@
+
+
+<script id="readmore" type="text/html">
+{% verbatim %}
+{{each articles article i}}
+	<li class="have-img">
+		<div class="content">
+		  <a href="https://www.jianshu.com/p/828e9f04f77c" class="title">{{article.title}}</a>
+		  <p>{{article.content_html}}</p>
+		  <div class="meta">
+		    <a class="nickname" target="_blank" href="/u/c1b86d84bdf4">{{article.author__username}}</a>&nbsp&nbsp
+		    <a target="_blank" href="/p/8cdef17ce106#comments"><span class="glyphicon glyphicon-comment"></span>&nbsp0</a>&nbsp&nbsp
+		    <span class="glyphicon glyphicon-heart"></span>&nbsp0
+		  </div>
+		</div>
+	</li>
+{{/each}}
+{% endverbatim %}
+</script>

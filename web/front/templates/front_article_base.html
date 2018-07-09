@@ -1,0 +1,58 @@
+{% extends "bootstrap.html" %}
+{% load static %}
+
+{% block titleblock %}
+
+{% endblock titleblock %}
+
+{% block headblock %}
+	<link href="{% static "css/front_article_base.css" %}" rel="stylesheet">
+	<script src="{% static "js/bnajax.js" %}"></script>
+	<script src="{% static "js/bntemplate.js" %}"></script>
+	<link href="{% static "css/dashboard.css" %}" rel="stylesheet">
+	<link href="{% static "css/simditor.css" %}" rel="stylesheet">
+	<script src="{% static "js/template-web.js" %}"></script>
+	<script src="{% static "js/module.js" %}"></script>
+	<script src="{% static "js/hotkeys.js" %}"></script>
+	<script src="{% static "js/simditor.js" %}"></script>
+{% block content_headblock %}
+{% endblock content_headblock %}
+{% endblock headblock %}
+
+{% block bodyblock %}
+<!-- 头部导航栏 -->
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#"><img src="{% static "image/jianshu.jpg" %}" class="logo" alt="" ></a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav ul-nav">
+        <li class="active"><a href="#">首页<span class="sr-only">(current)</span></a></li>
+        <li><a href="#">下载app</a></li>
+      </ul>
+
+      <form class="navbar-form navbar-left search-form">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="查找">
+        </div>
+        <button type="submit" class="btn btn-default">提交</button>
+      </form>
+
+      <ul class="nav navbar-nav navbar-right ul-nav-right">
+        <li><a href="#">A</a></li>
+        <li><a href="">登录</a></li>
+        <li><a href="" class="btn btn-danger singin-btn">注册</a></li>
+        <li><a href="" class="btn btn-danger write-btn">写文章</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+{% block contentblock %}
+{% endblock contentblock %}
+
+{% endblock bodyblock %}
