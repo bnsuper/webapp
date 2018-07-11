@@ -23,11 +23,19 @@ class CategoryModel(models.Model):
 
 #评论模型
 class CommentModel(models.Model):
-	author = models.ForeignKey(frontAuthModel,on_delete=models.CASCADE)
-	content = models.CharField(max_length=500)
-	release_time = models.DateTimeField(auto_now_add=True)
-	article = models.ForeignKey(ArticleModel,on_delete=models.CASCADE)
+	author = models.ForeignKey(frontAuthModel,on_delete=models.CASCADE)#评论人
+	content = models.CharField(max_length=500)#评论内容
+	release_time = models.DateTimeField(auto_now_add=True)#评论时间
+	article = models.ForeignKey(ArticleModel,on_delete=models.CASCADE)#评论文章
 
+#评论回复模型
+class CommentReplyModel(models.Model):
+	comment = models.ForeignKey(CommentModel,on_delete=models.CASCADE) #评论
+	reply_type = models.IntegerField() #回复类型，0表示回复评论，1表示回复评论的评论
+	reply_id = models.IntegerField() #回复id，根据回复类型来决定，回复类型为0即为comment_id类型为1即为commentreply_id
+	content = models.CharField(max_length=500)#评论内容
+	from_author = models.ForeignKey(frontAuthModel,on_delete=models.CASCADE,related_name='f_commentreply')#评论人
+	to_author = models.ForeignKey(frontAuthModel,on_delete=models.CASCADE,related_name='to_commentreply')#被评论人
 
 #点赞/喜欢模型
 class SupportModel(models.Model):
