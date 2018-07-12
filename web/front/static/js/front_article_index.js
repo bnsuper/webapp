@@ -1,8 +1,8 @@
 /*
 * @Author: chenbin
 * @Date:   2018-07-09 15:11:50
-* @Last Modified by:   chenbin
-* @Last Modified time: 2018-07-09 17:21:24
+* @Last Modified by:   bn
+* @Last Modified time: 2018-07-12 20:50:30
 */
 
 function checkHtml(htmlStr) {
@@ -22,6 +22,7 @@ $(function(){
 			},
 			success:function(data){
 				if(data['code'] == 200){
+					console.log(data)
 					var data = data.data
 					var c_page = data.c_page
 					var article_data = data.untop_articles

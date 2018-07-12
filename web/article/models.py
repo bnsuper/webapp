@@ -44,7 +44,7 @@ class SupportModel(models.Model):
 		('0','give up support!')
 	}
 	author = models.ForeignKey(frontAuthModel,on_delete=models.CASCADE)
-	article = models.ForeignKey(ArticleModel,on_delete=models.CASCADE)
+	article = models.ForeignKey(ArticleModel,on_delete=models.CASCADE,related_name='supports',related_query_name='supports')
 	status = models.CharField(max_length=1,choices=status)
 
 class TagModel(models.Model):

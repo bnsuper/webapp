@@ -106,8 +106,8 @@
                           <p>{{top_article.content_html|truncatechars_html:70|striptags}}</p>
                           <div class="meta">
                             <a class="nickname" target="_blank" href="/u/c1b86d84bdf4">{{top_article.author.username}}</a>&nbsp&nbsp
-                            <a target="_blank" href="/p/8cdef17ce106#comments"><span class="glyphicon glyphicon-comment"></span>&nbsp10</a>&nbsp&nbsp
-                            <span class="glyphicon glyphicon-heart"></span>&nbsp10
+                            <a target="_blank" href="/p/8cdef17ce106#comments"><span class="glyphicon glyphicon-comment"></span>&nbsp{{top_article.comment_count}}</a>&nbsp&nbsp
+                            <span class="glyphicon glyphicon-heart"></span>&nbsp{{top_article.support_count}}
                           </div>
                         </div>
                       </li>
@@ -121,8 +121,8 @@
                           <p>{{untop_article.content_html|truncatechars_html:70|striptags}}</p>
                           <div class="meta">
                             <a class="nickname" target="_blank" href="/u/c1b86d84bdf4">{{untop_article.author.username}}</a>&nbsp&nbsp
-                            <a target="_blank" href="/p/8cdef17ce106#comments"><span class="glyphicon glyphicon-comment"></span>&nbsp0</a>&nbsp&nbsp
-                            <span class="glyphicon glyphicon-heart"></span>&nbsp0
+                            <a target="_blank" href="/p/8cdef17ce106#comments"><span class="glyphicon glyphicon-comment"></span>&nbsp{{untop_article.comment_count}}</a>&nbsp&nbsp
+                            <span class="glyphicon glyphicon-heart"></span>&nbsp{{untop_article.support_count}}
                           </div>
                         </div>
                       </li>
