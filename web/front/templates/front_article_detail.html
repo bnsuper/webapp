@@ -1,0 +1,93 @@
+{% extends "front_article_base.html" %}
+{% load static %}
+
+{% block titleblock %}
+	简书_文章页
+{% endblock titleblock %}
+
+{% block content_headblock %}
+  <link href="{% static "css/front_article_detail.css" %}" rel="stylesheet">
+  <script src="{% static "js/front_article_detail.js" %}"></script>
+{% endblock content_headblock %}
+
+{% block contentblock %}
+	<div class="container-fluid main-box">
+		<div class="row">
+			<div class="article">
+				<h1 class="">我是标题</h1>
+				<div class="author">
+					<a href="" class="avatar">
+						<img src="https://upload.jianshu.io/users/upload_avatars/9601504/f6a49bb0-ff98-4244-9031-6fe772df1180.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96" alt="">
+					</a>
+					<div class="info">
+						<span class="name">宝强</span>
+						<a href="" class="btn btn-success btn-sm btn-attention"><span class="glyphicon glyphicon-plus"></span>&nbsp<span>关注</span></a>
+						<div class="meta">
+							<span>2018.07.05 22:11</span>&nbsp
+							<span>字数 1795</span>&nbsp
+							<span>阅读 1455</span>&nbsp
+							<span>评论 16</span>&nbsp
+							<span>喜欢 10</span>&nbsp
+						</div>
+					</div>
+				</div>
+				<div class="content">
+					<img src="https://upload-images.jianshu.io/upload_images/11092214-f136317eea10a85e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="">
+					<p>这里是文章内容</p>
+				</div>
+				<div class="article-menu">
+					<div class="menu-item">
+						<a href="">
+							<span class="glyphicon glyphicon-chevron-left"></span>
+							上一篇
+						</a>
+					</div>
+					<div class="menu-item">
+						<a href="">
+							目录
+						</a>
+					</div>
+					<div class="menu-item">
+						<a href="">
+							下一篇
+						<span class="glyphicon glyphicon-chevron-right"></span>
+						</a>
+					</div>
+				</div>
+				<div class="follow-detail">
+					<div class="info">
+						<a href="" class="avatar"><img src="https://upload.jianshu.io/users/upload_avatars/3266286/fe2f5ca6cbf8.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96" alt=""></a>
+						<a href="" class="title">弹球小姐Lydia</a>
+						<p>写了 93892 字，被 1544 人关注，获得了 2308 个喜欢</p>
+						<a href="" class="btn btn-success btn-custom">
+							<span class="glyphicon glyphicon-plus"></span>关注
+						</a>
+					</div>
+					<div class="signature">
+						新书《跨越》全面上市，38篇有方法论的故事，教你突破上行通道
+					</div>
+				</div>
+
+				<div class="meta-bottom">
+					<div class="btn-support">
+						<div class="like-group">
+							<div class="btn-like">
+								<div class="glyphicon glyphicon-heart-empty box-like"></div>
+								<div class="test">喜欢</div>
+							</div>
+							<div class="modal-wrap">
+								<span>10</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<p>&nbsp</p>
+	<p>&nbsp</p>
+	<p>&nbsp</p>
+	<p>&nbsp</p>
+	<p>&nbsp</p>
+	<p>&nbsp</p>
+{% endblock contentblock %}

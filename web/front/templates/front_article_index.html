@@ -102,7 +102,7 @@
                     {% for top_article in top_articles %}
                       <li class="have-img">
                         <div class="content">
-                          <a href="https://www.jianshu.com/p/828e9f04f77c" class="title">{{top_article.title}}<span style="color:red;">[推荐]</span></a>
+                          <a href="{% url 'front_article' uid=top_article.uid %}" class="title">{{top_article.title}}<span style="color:red;">[推荐]</span></a>
                           <p>{{top_article.content_html|truncatechars_html:70|striptags}}</p>
                           <div class="meta">
                             <a class="nickname" target="_blank" href="/u/c1b86d84bdf4">{{top_article.author.username}}</a>&nbsp&nbsp
@@ -117,7 +117,7 @@
                     {% for untop_article in untop_articles %}
                       <li class="have-img">
                         <div class="content">
-                          <a href="https://www.jianshu.com/p/828e9f04f77c" class="title">{{untop_article.title}}</a>
+                          <a href="{% url 'front_article' uid=untop_article.uid %}" class="title">{{untop_article.title}}</a>
                           <p>{{untop_article.content_html|truncatechars_html:70|striptags}}</p>
                           <div class="meta">
                             <a class="nickname" target="_blank" href="/u/c1b86d84bdf4">{{untop_article.author.username}}</a>&nbsp&nbsp

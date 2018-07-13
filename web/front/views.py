@@ -35,6 +35,7 @@ def front_index(request):
 				article['author__username'] = untop_article.author.username
 				article['comment_count'] = comment_count
 				article['support_count'] = support_count
+				article['uid'] = untop_article.uid
 				temp.append(article) 
 			data['untop_articles'] = temp
 			return bnjson.json_result(message='数据获取成功',data=data)
@@ -76,11 +77,14 @@ def front_index(request):
 				top_article.comment_count = 0
 		context['top_articles'] = top_articles
 		context['categorys'] = categorys
-		print('测试')
-		print(context['top_articles'])
-		for x in context['top_articles']:
-			print('点赞数：',x.support_count)
-		print('测试')
+		# print('测试')
+		# print(context['top_articles'])
+		# for x in context['top_articles']:
+		# 	print('点赞数：',x.support_count)
+		# print('测试')
 		return render(request,'front_article_index.html',context=context)
 
 
+def front_article(request,uid):
+	text = '这里是文章详情页' + '文章id:' + uid
+	return render(request,'front_article_detail.html')

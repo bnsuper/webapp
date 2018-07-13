@@ -9,6 +9,7 @@ from django.db import connection
 from django.db.models.expressions import RawSQL
 from article.models import ArticleModel,CategoryModel,TagModel
 from django.db.models.query import RawQuerySet
+import pickle
 # Create your views here.
 
 def mytest_index(request):
@@ -25,11 +26,16 @@ def mytest_index(request):
 	# print(connection.queries)
 	# print('-'*30)
 
-	articles = ArticleModel.objects.raw('SELECT * FROM article_articlemodel')
-	print(type(articles))
-	for s in articles:
-		print(type(s))
-		print(s.title)
-
+	# articles = ArticleModel.objects.raw('SELECT * FROM article_articlemodel')
+	# print(type(articles))
+	# for s in articles:
+	# 	print(type(s))
+	# 	print(s.title)
+	tag = TagModel.objects.filter(pk=1)
+	s = pickle.dumps(tag.query)
+	print(s)
+	tags = TagModel.objects.all().order_by('id')
+	# tags.query = pickle.loads(s)
+	print(tags.values())
 	return HttpResponse('ok')
 

@@ -8,5 +8,6 @@ from front import views
 
 urlpatterns = [
     url(r'^$', views.front_index, name='front_index'),
+    url(r'^article/(?P<uid>[\w\-]+)/$', views.front_article, name='front_article'),
 
 ]
