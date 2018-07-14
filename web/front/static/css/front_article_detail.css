@@ -207,5 +207,140 @@ h1{
 .comment-write{
 	width: 100%;
 	height: 130px;
-	background: yellow;
+	/*background: yellow;*/
+}
+
+
+.form-write{
+	position: relative;
+	width: 552px;
+	height: 100%;
+	/*background: skyblue;*/
+	margin-left: 68px;
+	margin-bottom: 20px;
+}
+
+.form-write .avatar{
+	position: absolute;
+	left: -68px;
+}
+
+.form-write textarea{
+	width: 100%;
+	height: 80px;
+	padding: 10px 15px;
+	font-size: 13px;
+	border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    background-color: hsla(0,0%,71%,.1);
+    resize: none;
+    outline-style: none;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.write-function-block{
+	width: 100%;
+	height: 50px;
+	/*background: grey;*/
+}
+
+.cancle{
+	/*background: green;*/
+	margin-right: 40px;
+	margin-top: 18px;
+	float: right;
+	font-size: 16px;
+    color: #969696;
+}
+
+.btn-send{
+	float: right;
+	width: 78px;
+	margin: 10px 0;
+    padding: 8px 18px;
+    font-size: 16px;
+    border: none;
+    border-radius: 20px;
+    color: #fff!important;
+    background-color: #42c02e;
+    cursor: pointer;
+    outline: none;
+    display: block;
+}
+
+.normal-comment-list{
+	margin-top: 40px;
+}
+
+.normal-comment-list .top-title{
+	height: 47px;
+	width: 100%;
+	/*background: grey;*/
+}
+
+.box-title{
+	font-size: 17px;
+	padding-bottom: 23px;
+	border-bottom: 1px solid #f0f0f0;
+}
+.box-title span{
+	font-weight: 700;
+}
+
+.pull-right{
+	float: right;
+	height: 100%;
+
+}
+
+.pull-right{
+    margin-left: 10px;
+    font-size: 12px;
+    /*font-weight: 400;*/
+    color: #969696;
+    display: inline-block;
+}
+
+.comment-author img{
+	border-radius: 50%;
+	width: 100%;
+	height: 100%;
+}
+
+.comment-author{
+	margin-bottom: 20px;
+}
+.comment-author .image{
+	display: inline-block;
+	width: 38px;
+	height: 38px;
+	float: left;
+	margin-right: 10px;
+}
+
+.comment-author-info{
+	float: left;
+}
+
+.comment{
+	height: 38px;
+}
+
+.main-comment{
+	height: 100%
+}
+
+.comment-author{
+	height: 100%;
+	margin-top: 0px;
+}
+
+.comment-wrap{
+	width: 100%
+}
+
+.comment-wrap{
+    line-height: 1.5;
+    font-size: 16px;
 }
