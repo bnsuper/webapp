@@ -86,5 +86,8 @@ def front_index(request):
 
 
 def front_article(request,uid):
-	text = '这里是文章详情页' + '文章id:' + uid
-	return render(request,'front_article_detail.html')
+	article=ArticleModel.objects.filter(pk=uid).first()
+	context= {
+		'article':article
+	}
+	return render(request,'front_article_detail.html',context=context)
