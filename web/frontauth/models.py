@@ -22,9 +22,14 @@ class frontAuthModel(models.Model):
 #注册用户相互关注模型
 class authReationModel(models.Model):
 	type = (
-		('1','attention'),
-		('2','fans')
+		('1','fans each othor'),
+		('0','only i attenion you')
 		)
+	'''
+	authA为关注者
+	authB为被关注者
+	relation_type为1代表双方互粉，代表单向关注
+	'''
 	authA = models.ForeignKey(frontAuthModel,on_delete=models.CASCADE,related_name='authAs')
 	authB = models.ForeignKey(frontAuthModel,on_delete=models.CASCADE,related_name='authBs')
 	relation_type = models.CharField(max_length=1,choices=type)

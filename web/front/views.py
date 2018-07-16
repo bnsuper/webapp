@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse,JsonResponse
-from article.models import ArticleModel,CategoryModel
+from article.models import ArticleModel,CategoryModel,CommentModel,CommentReplyModel
 from front.utils import page
 from utils import bnjson
 from django.views.decorators.http import require_http_methods
@@ -9,6 +9,7 @@ from django.db.models import Count
 from django.db.models import F
 from django.db import connection
 from django.forms.models import model_to_dict
+import re
 
 # Create your views here.
 @require_http_methods(['GET'])
@@ -87,7 +88,46 @@ def front_index(request):
 
 def front_article(request,uid):
 	article=ArticleModel.objects.filter(pk=uid).first()
+	article.read_count = F('read_count') + 1
+	article.save(update_fields=['read_count'])
+	article.refresh_from_db()
+	html = article.content_html
+	dr = re.compile(r'(<[^>]+>)|(&nbsp;)|( )',re.S)
+	dd = dr.sub('',html)
+	print('-'*30)
+	print(dd)
+	print('-'*30)
+	#添加文字数属性
+	article.word_count = len(dd)
+	#计算评论数
+	main_comments = article.commentmodel_set
+	main_comments_count = main_comments.count()
+	sub_comments_count = main_comments.aggregate(count=Count('pk'))['count']
+	#添加文章评论数量属性
+	article.comment_count = main_comments_count + sub_comments_count
+	#计算文章喜欢量
+	article.support_count = article.supports.count()
+	#作者
+	author = article.author
+	#该作者写的文章总字数
+	word_count = 0
+	articles  = author.articlemodel_set.all()
+	for temp in articles:
+		html = temp.content_html
+		dd = dr.sub('',html)
+		word_count += len(dd)
+	#给作者添加word_count属性
+	author.word_count = word_count
+	#该作者被多少人关注
+	attention_count = author.authBs.count()
+	#给作者添加关注量属性
+	author.attention_count = attention_count
+	#该作者获得了多少喜欢
+	like_count = articles.filter(supports__status=1).aggregate(count=Count('supports'))['count']
+	#添加喜欢量属性
+	author.like_count = like_count
 	context= {
-		'article':article
+		'article':article,
+		'author':author
 	}
 	return render(request,'front_article_detail.html',context=context)

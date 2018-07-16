@@ -12,7 +12,7 @@ class ArticleModel(models.Model):
 	category = models.ForeignKey('CategoryModel',on_delete=models.CASCADE,null=True)
 	release_time = models.DateTimeField(auto_now_add=True)
 	update_time = models.DateTimeField(auto_now=True)
-	read_count = models.IntegerField(null=True)
+	read_count = models.IntegerField(default=0)
 	tags = models.ManyToManyField('TagModel')
 	top = models.OneToOneField('TopModel',on_delete=models.SET_NULL,null=True)
 
