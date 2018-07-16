@@ -235,7 +235,7 @@ def cms_article_modify(request,uid):
 			article.title = title
 			article.category = category
 			article.content_html = content
-			article.save(update_fields=['title','category','content_html'])
+			article.save(update_fields=['title','category','content_html','update_time'])
 			tagIds = request.POST.getlist('tagIds')
 			tags = []
 			if tagIds:
