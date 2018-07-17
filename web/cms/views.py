@@ -19,6 +19,11 @@ from django.utils import timezone
 from django.db.models import Q,F
 from django.db import connection
 
+from frontauth.hashers import make_password
+from frontauth import front_login,front_logout
+from frontauth.configs import LOGIN_KEY
+from frontauth.decorators import front_login_required
+
 # Create your views here.
 
 #current_page指当前页，query_result指queryset的查询结果,query_name指的是切片的key名称
@@ -346,66 +351,16 @@ def cms_add_tag(request):
 	else:
 		return form.error_json_resopnse()
 
-@login_required
+# @login_required
+@front_login_required
 def cms_test(request):
-	# author_list = makeAuthors(1)
-	# for author in author_list:
-	# 	Author = frontAuthModel(**author)
-	# 	Author.save()
-
-	# author = frontAuthModel(username='伊万卡',tel='15999994599',email='yiwanka@sina.com',password='123456')
-	# author.save()
-
-	# category = CategoryModel(name='历史')
-	# category.save()
-
-	# author = frontAuthModel.objects.filter(username='汪峰').first()
-	# category = CategoryModel.objects.filter(name='电影').first()
-	# kwards = {
-	# 	'title':'真的很皮',
-	# 	'content_html':'童话里都是骗人的！',
-	# 	'author':author,
-	# 	'category':category,
-	# 	'read_count': None
+	# kwargs = {
+	# 	'username': '皮诺曹',
+	# 	'tel': '15885854683',
+	# 	'email': '999888@qq.com',
+	# 	'password': '123456'
 	# }
-	# articel = ArticleModel(**kwards)
-	# articel.save()
-
-	# article = ArticleModel.objects.filter(title='标题').first()
-	# article.author = author
-	# article.category = category
-	# article.read_count = 28
-	# article.save(update_fields=['read_count'])
-
-	# articles = ArticleModel.objects.filter(author__isnull=True)
-	# articles.update(author=author,category=category,read_count=36)
-
-	# articles = ArticleModel.objects.select_related('author__username')
-	# print(type(articles))
-	# print(articles.values())
-
-	# tag = TagModel.objects.filter(name='文艺范').first()
-	# # article = ArticleModel.objects.filter(title='放弃也是一种快乐').first()
-	# article = ArticleModel.objects.values('title','author__username','uid').annotate(count=Count('pk'))
-	# print(article)
-	# print(article.query)
-	# category = CategoryModel.objects.annotate(article_count=Count('articlemodel')).values('name')
-	# print('-'*50)
-	# print(category)
-	# print(category.query)
-	print('-'*50)
-	test = CategoryModel.objects.aggregate(Count('articlemodel'))
-	print(test)
-	print('-'*50)
-	print(connection.queries)
-
-	# article = ArticleModel.objects.filter(title='大学').first()
-	# # article.tags.add(tag)
-	# top = TopModel()
-	# top.save()
-	# article.top = top
-	# article.save(update_fields=['top'])
-
-	top = TopModel.objects.filter(pk=2).first()
-	top.save()
-	return HttpResponse('这里是测试页面')
+	# user = frontAuthModel.objects.filter(tel='15885854683').first()
+	# temp = front_login(request,user,'1234567')
+	# front_logout(request)
+	return render(request,'test.html')

@@ -9,5 +9,6 @@ from front import views
 urlpatterns = [
     url(r'^$', views.front_index, name='front_index'),
     url(r'^article/(?P<uid>[\w\-]+)/$', views.front_article, name='front_article'),
-
+    url(r'^sign_in/$', views.front_sign_in, name='front_sign_in'),
+    url(r'^sign_up/$', views.front_sign_up, name='front_sign_up'),
 ]

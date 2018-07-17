@@ -131,3 +131,19 @@ def front_article(request,uid):
 		'author':author
 	}
 	return render(request,'front_article_detail.html',context=context)
+
+#登录页面
+@require_http_methods(['GET','POST'])
+def front_sign_in(request):
+	if request.method == 'GET':
+		return HttpResponse('这里是登录页！')
+	else:
+		pass
+
+#注册页面
+@require_http_methods(['GET','POST'])
+def front_sign_up(request):
+	if request.method == 'GET':
+		return HttpResponse('这里是注册页面')
+	else:
+		pass

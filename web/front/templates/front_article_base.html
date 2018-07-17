@@ -44,8 +44,8 @@
 
       <ul class="nav navbar-nav navbar-right ul-nav-right">
         <li><a href="#">A</a></li>
-        <li><a href="">登录</a></li>
-        <li><a href="" class="btn btn-danger singin-btn">注册</a></li>
+        <li><a href="{% url 'front_sign_in' %}">登录</a></li>
+        <li><a href="{% url 'front_sign_up' %}" class="btn btn-danger singin-btn">注册</a></li>
         <li><a href="" class="btn btn-danger write-btn">写文章</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
