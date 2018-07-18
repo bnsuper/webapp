@@ -1,0 +1,26 @@
+
+
+.signin .form-group{
+	height: 50px;
+	margin-bottom: 0px;
+}
+
+.signin .input-group,.signin input{
+	height: 100%;
+}
+
+.checkbox-custom label{
+	padding-top: 0px;
+}
+
+.checkbox input[type=checkbox]{
+	margin-top: -1px;
+}
+
+.checkbox-custom{
+	margin-top: 20px;
+}
+
+.checkbox-custom a{
+	float: right;
+}

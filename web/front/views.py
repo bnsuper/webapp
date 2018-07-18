@@ -136,7 +136,7 @@ def front_article(request,uid):
 @require_http_methods(['GET','POST'])
 def front_sign_in(request):
 	if request.method == 'GET':
-		return HttpResponse('这里是登录页！')
+		return render(request,'front_signin.html')
 	else:
 		pass
 
