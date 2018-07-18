@@ -6,7 +6,7 @@
 }
 
 .signin .input-group,.signin input{
-	height: 100%;
+	height: 50px;
 }
 
 .checkbox-custom label{
@@ -14,7 +14,7 @@
 }
 
 .checkbox input[type=checkbox]{
-	margin-top: -1px;
+	margin-top: -15px;
 }
 
 .checkbox-custom{
