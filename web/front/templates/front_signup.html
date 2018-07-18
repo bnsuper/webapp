@@ -1,0 +1,47 @@
+{% extends "front_sign_base.html" %}
+{% load static %}
+
+{% block titleblock %}
+	注册-简书
+{% endblock titleblock %}
+
+{% block content_headblock %}
+	<link href="{% static "css/front_signup.css" %}" rel="stylesheet">
+	<script src=""></script>
+{% endblock content_headblock %}
+
+{% block contentblock %}
+	<div class="signup">
+		<form action="">
+			<div class="form-group">
+				<div class="input-group">
+					<div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+					<input type="text" class="form-control" placeholder="你的昵称" aria-describedby="basic-addon1">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="input-group">
+					<div class="input-group-addon"><span class="glyphicon glyphicon-phone"></span></div>
+					<input type="text" class="form-control" placeholder="手机号" aria-describedby="basic-addon1">
+				</div>
+			</div>
+
+
+			<div class="form-group">
+				<div class="input-group">
+					<div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+					<input type="text" class="form-control" placeholder="设置密码" aria-describedby="basic-addon1">
+				</div>
+			</div>
+
+
+			<div class="form-group">
+				<button class="btn btn-success btn-block btn-signup">注册</button>
+			</div>
+		</form>
+	</div>
+
+{% endblock contentblock %}
+
+

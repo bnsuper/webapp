@@ -15,6 +15,7 @@
 	<script src="{% static "js/hotkeys.js" %}"></script>
 	<script src="{% static "js/simditor.js" %}"></script>
 	<link href="{% static "css/front_sign_base.css" %}" rel="stylesheet">
+	<script src="{% static "js/front_sign_base.js" %}"></script>
 {% block content_headblock %}
 {% endblock content_headblock %}
 {% endblock headblock %}
@@ -27,9 +28,9 @@
 	<div class="main">
 		<h4 class="title">
 			<div class="normal-title">
-				<a href="">登录</a>
+				<a href="{% url "front_sign_in" %}">登录</a>
 				<b>·</b>
-				<a href="">注册</a>
+				<a href="{% url "front_sign_up" %}">注册</a>
 			</div>
 		</h4>
 		{% block contentblock %}

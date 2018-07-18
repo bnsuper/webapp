@@ -144,6 +144,6 @@ def front_sign_in(request):
 @require_http_methods(['GET','POST'])
 def front_sign_up(request):
 	if request.method == 'GET':
-		return HttpResponse('这里是注册页面')
+		return render(request,'front_signup.html')
 	else:
 		pass

@@ -1,0 +1,31 @@
+
+
+
+.signup .form-group{
+	height: 50px;
+	margin-bottom: 0px;
+}
+
+.signup .input-group,.signup input{
+	height: 50px;
+}
+
+.checkbox-custom label{
+	padding-top: 0px;
+}
+
+.checkbox input[type=checkbox]{
+	margin-top: -15px;
+}
+
+.checkbox-custom{
+	margin-top: 20px;
+}
+
+.checkbox-custom a{
+	float: right;
+}
+
+.btn-signup{
+	margin-top: 20px;
+}
