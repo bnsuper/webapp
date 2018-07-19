@@ -2,7 +2,7 @@
 * @Author: bn
 * @Date:   2018-05-28 22:20:59
 * @Last Modified by:   chenbin
-* @Last Modified time: 2018-06-09 10:58:15
+* @Last Modified time: 2018-07-19 15:54:09
 */
 body {
   padding-top: 40px;
@@ -47,4 +47,19 @@ body {
 
 .form-control{
   margin-top: 10px;
+}
+
+.captcha input{
+  width: 120px;
+  height: 30px;
+  padding: 10px;
+}
+
+.captcha a img{
+  width:100px;
+}
+
+.captcha a{
+  margin-left: 20px;
+  display: inline-block;
 }

@@ -2,15 +2,23 @@
 # @Author: bn
 # @Date:   2018-05-28 22:57:07
 # @Last Modified by:   chenbin
-# @Last Modified time: 2018-07-06 09:44:00
+# @Last Modified time: 2018-07-19 16:47:13
 from django import forms
 from common.forms import BaseForm
+from utils.captcha.bncaptcha import Captcha
 
 class cms_loginForm(BaseForm):
 	username = forms.CharField()
 	password = forms.CharField(min_length=6,error_messages={'min_length':'password is too short!'})
 	remember = forms.BooleanField(required=False)
+	captcha = forms.CharField(min_length=4,max_length=4,error_messages={'min_length':'请输入4位验证码'})
 
+	def clean_captcha(self):
+		captcha = self.cleaned_data.get('captcha').lower()
+		if Captcha.check_captcha(captcha):
+			return captcha
+		else:
+			raise forms.ValidationError('captcha is error!')
 
 class cmsDeleteAuthorForm(BaseForm):
 	author_uid = forms.UUIDField(required=True)
